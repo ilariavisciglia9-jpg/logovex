@@ -1,0 +1,209 @@
+LICENZA D'USO LOGO - LogoVex
+================================================================================
+
+DATA EMISSIONE: [Data Acquisto]
+NUMERO ORDINE: [Numero Ordine]
+
+LICENZIANTE: LogoVex - [Inserire Ragione Sociale]
+                       P.IVA: [Inserire P.IVA]
+                       
+LICENZIATARIO: [Nome Cliente]
+               Email: [Email Cliente]
+               
+LOGO IDENTIFICATIVO: "[Nome Brand]"
+ID LOGO: [ID Logo]
+STILE: [Stile Logo]
+DATA GENERAZIONE: [Data]
+
+================================================================================
+
+CONCESSIONE DI LICENZA
+
+Con il presente documento, LogoVex concede al Licenziatario una licenza 
+commerciale NON ESCLUSIVA e PERPETUA per l'utilizzo del logo sopra identificato,
+nei termini e condizioni di seguito specificati.
+
+================================================================================
+
+1. USI CONSENTITI
+
+Il Licenziatario è autorizzato a:
+
+✅ UTILIZZO COMMERCIALE
+   - Utilizzo illimitato per scopi commerciali del proprio brand
+   - Uso su siti web, e-commerce, piattaforme digitali
+   - Uso su materiale pubblicitario (stampa, digitale, video)
+   - Uso sui social media (Facebook, Instagram, LinkedIn, ecc.)
+
+✅ MERCHANDISING E PACKAGING
+   - Stampa su prodotti (t-shirt, tazze, gadget, ecc.)
+   - Packaging di prodotti
+   - Etichette e adesivi
+   - Biglietti da visita, brochure, cataloghi
+
+✅ MODIFICHE
+   - Ridimensionamento e adattamento del logo
+   - Cambio colori
+   - Aggiunta di testo (slogan, payoff)
+   - Integrazione con altri elementi grafici
+   - Conversione in formati diversi
+
+✅ REGISTRAZIONE MARCHIO
+   - Il Licenziatario può tentare la registrazione del logo come marchio
+   - La registrazione è a totale responsabilità e rischio del Licenziatario
+   - LogoVex non garantisce l'esito positivo della registrazione
+
+✅ SUBLICENZA
+   - Concessione a fornitori per stampa/produzione
+   - Concessione ad agenzie per uso marketing (con vincoli d'uso)
+
+================================================================================
+
+2. USI NON CONSENTITI
+
+Il Licenziatario NON può:
+
+❌ RIVENDITA
+   - Rivendere il logo ad altre aziende o persone
+   - Commercializzare il logo come prodotto autonomo
+   - Includerlo in librerie/raccolte di loghi in vendita
+
+❌ VIOLAZIONI LEGALI
+   - Uso per scopi illegali, diffamatori, osceni
+   - Uso per incitare odio, violenza, discriminazione
+   - Violazione di diritti di terzi
+
+❌ PRETESE DI ESCLUSIVITÀ
+   - Impedire a LogoVex di generare loghi simili per altri clienti
+   - Claim di "proprietà esclusiva" dell'immagine AI
+
+❌ REVERSE ENGINEERING
+   - Uso del logo per addestrare altri sistemi AI
+   - Decompilazione o analisi del sistema di generazione
+
+================================================================================
+
+3. PROPRIETÀ INTELLETTUALE
+
+Il logo è stato generato tramite intelligenza artificiale (DALL-E 3 di OpenAI).
+
+Secondo i Termini di Servizio di OpenAI (https://openai.com/policies/terms-of-use):
+- L'output generato dall'AI è assegnato al richiedente (Licenziatario)
+- OpenAI non rivendica ownership sull'output
+- Il Licenziatario riceve diritti commerciali sull'immagine
+
+LogoVex fornisce il logo "as-is" e trasferisce al Licenziatario tutti i diritti
+concessi da OpenAI per l'output generato.
+
+================================================================================
+
+4. LIMITAZIONI E DISCLAIMER
+
+⚠️ IMPORTANTE - LEGGERE ATTENTAMENTE:
+
+4.1 NESSUNA GARANZIA DI UNICITÀ
+    LogoVex NON garantisce che il logo sia:
+    - Unico al 100%
+    - Completamente originale
+    - Libero da somiglianze con loghi esistenti
+    
+    I loghi sono generati da algoritmi AI che potrebbero creare design simili
+    per prompt simili forniti da utenti diversi.
+
+4.2 RESPONSABILITÀ DEL LICENZIATARIO
+    È ESCLUSIVA RESPONSABILITÀ del Licenziatario:
+    - Verificare che il logo non violi marchi registrati esistenti
+    - Effettuare ricerche presso UIBM, EUIPO, WIPO prima dell'uso commerciale
+    - Consultare un avvocato specializzato in proprietà intellettuale
+    - Gestire eventuali dispute legali su somiglianze/violazioni
+
+4.3 LIMITAZIONE DI RESPONSABILITÀ
+    LogoVex NON è responsabile per:
+    - Dispute legali relative a violazioni di marchi
+    - Impossibilità di registrare il logo come marchio
+    - Perdite economiche derivanti dall'uso del logo
+    - Decisioni negative di uffici marchi (UIBM, EUIPO, ecc.)
+    - Somiglianze con loghi esistenti
+
+4.4 RISORSE PER RICERCA MARCHI
+    Si consiglia di effettuare ricerche presso:
+    
+    🇮🇹 ITALIA: UIBM (Ufficio Italiano Brevetti e Marchi)
+       https://www.uibm.gov.it
+       
+    🇪🇺 UNIONE EUROPEA: EUIPO (Ufficio UE Proprietà Intellettuale)
+       https://www.euipo.europa.eu
+       
+    🌍 INTERNAZIONALE: WIPO (Organizzazione Mondiale Proprietà Intellettuale)
+       https://www.wipo.int
+
+================================================================================
+
+5. DURATA E RISOLUZIONE
+
+5.1 DURATA
+    La licenza è PERPETUA - non ha scadenza temporale.
+
+5.2 RISOLUZIONE
+    LogoVex può risolvere la licenza in caso di:
+    - Uso del logo per scopi illegali
+    - Violazione dei termini di questa licenza
+    - Rivendita non autorizzata del logo
+    
+    In caso di risoluzione, il Licenziatario deve cessare immediatamente
+    ogni utilizzo del logo.
+
+================================================================================
+
+6. VARIE
+
+6.1 MODIFICHE
+    Questa licenza può essere modificata solo con accordo scritto firmato
+    da entrambe le parti.
+
+6.2 LEGGE APPLICABILE
+    Legge italiana - Foro competente: Tribunale di [Inserire Città]
+
+6.3 INTEGRALITÀ
+    Questa licenza costituisce l'intero accordo tra le parti e sostituisce
+    ogni precedente comunicazione.
+
+6.4 SEPARABILITÀ
+    Se una clausola è invalida, le altre rimangono in vigore.
+
+================================================================================
+
+7. CONTATTI
+
+Per questioni relative a questa licenza:
+
+📧 Email: legal@logovex.com
+📞 Supporto: support@logovex.com
+🌐 Web: https://www.logovex.com
+
+================================================================================
+
+8. ACCETTAZIONE
+
+Scaricando e utilizzando il logo, il Licenziatario dichiara di:
+
+✅ Aver letto e compreso questa licenza
+✅ Accettare tutti i termini e condizioni
+✅ Comprendere le limitazioni di responsabilità
+✅ Assumersi la responsabilità della verifica marchi
+✅ Esonerare LogoVex da ogni responsabilità per dispute legali
+
+================================================================================
+
+FIRMA ELETTRONICA
+
+Questo documento è generato automaticamente e costituisce licenza valida
+ai sensi del Regolamento eIDAS (UE 910/2014).
+
+Data Emissione: [Data]
+Hash Transazione: [Hash]
+IP Cliente: [IP]
+
+© 2025 LogoVex. Tutti i diritti riservati.
+
+================================================================================
