@@ -10,8 +10,10 @@ const PORT = process.env.PORT || 3000;
 
 // Inizializza OpenAI
 const openai = new OpenAI({ 
-    apiKey: process.env.OPENAI_API_KEY 
+    apiKey: process.env.OPENAI_API_KEY_NEW 
 });
+// Trust proxy per Railway
+app.set('trust proxy', 1);
 
 // Middleware
 app.use(cors());
