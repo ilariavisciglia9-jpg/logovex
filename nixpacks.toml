@@ -1,0 +1,24 @@
+[phases.setup]
+nixPkgs = ["nodejs_18"]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[start]
+cmd = "npm start"
+```
+
+Salva (Ctrl+S) e chiudi.
+
+---
+
+### STEP 2: Verifica Raw Editor Variables (SENZA PORT)
+
+1. Railway → Variables → **"Raw Editor"**
+2. **Cancella tutto** e incolla:
+```
+OPENAI_API_KEY=LA-TUA-CHIAVE-OPENAI-QUI
+NODE_ENV=production
+CLIENT_URL=https://logovex.com
+STRIPE_SECRET_KEY=sk_test_LA-TUA-CHIAVE
+STRIPE_PUBLISHABLE_KEY=pk_test_LA-TUA-CHIAVE
