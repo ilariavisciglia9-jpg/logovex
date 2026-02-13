@@ -5,6 +5,8 @@ const express = require('express');
 const cors = require('cors');
 const OpenAI = require('openai');
 require('dotenv').config();
+const fs = require('fs');           // ← AGGIUNGI
+const path = require('path');       // ← AGGIUNGI
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -136,7 +138,7 @@ Rispondi SOLO con JSON (senza markdown, senza backticks):
 
 async function generateLogoImage(concept, brandName, style) {
     const dallePrompt = createDallePrompt(concept, brandName, style);
-    console.log('ðŸŽ¨ DALL-E prompt:', dallePrompt);
+    console.log('🎨 DALL-E prompt:', dallePrompt);
     
     const response = await openai.images.generate({
         model: "dall-e-3",
@@ -147,7 +149,37 @@ async function generateLogoImage(concept, brandName, style) {
         style: "vivid"
     });
     
-    return response.data[0].url;
+    const temporaryUrl = response.data[0].url;
+    console.log('📥 URL temporaneo DALL-E:', temporaryUrl);
+    
+    // SCARICA e SALVA l'immagine permanentemente
+    try {
+        const imageResponse = await fetch(temporaryUrl);
+        const arrayBuffer = await imageResponse.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        
+        // Crea directory logos se non esiste
+        const logosDir = path.join(__dirname, 'public', 'logos');
+        if (!fs.existsSync(logosDir)) {
+            fs.mkdirSync(logosDir, { recursive: true });
+            console.log('📁 Directory /public/logos creata');
+        }
+        
+        // Salva immagine con nome unico
+        const filename = `logo_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.png`;
+        const filepath = path.join(logosDir, filename);
+        fs.writeFileSync(filepath, buffer);
+        
+        console.log('✅ Immagine salvata:', filename);
+        
+        // Ritorna URL permanente (relativo)
+        return `/logos/${filename}`;
+        
+    } catch (saveError) {
+        console.error('⚠️ Errore salvataggio immagine:', saveError);
+        // Fallback: usa URL temporaneo se il salvataggio fallisce
+        return temporaryUrl;
+    }
 }
 
 function createDallePrompt(concept, brandName, style) {
