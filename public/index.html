@@ -157,12 +157,12 @@
                 <form id="generator-form" class="generator-form" onsubmit="return generateLogo(event)">
                     <div class="form-group">
                         <label for="brandName">Nome del Brand</label>
-                        <input type="text" id="brandName" placeholder="es. TechVision">
-                    </div>
+                        <input type="text" id="brandName" placeholder="es. TechVision" required>                    
+                          </div>
 
                     <div class="form-group">
                         <label for="industry">Settore</label>
-                        <select id="industry">
+                        <select id="industry" required>
                             <option value="">Seleziona settore...</option>
                             <option value="tech">Tecnologia</option>
                             <option value="fashion">Moda</option>
@@ -178,7 +178,7 @@
 
                     <div class="form-group">
                         <label for="style">Stile Desiderato</label>
-                        <select id="style">
+                        <select id="style" required>
                             <option value="">Seleziona stile...</option>
                             <option value="minimal">Minimalista</option>
                             <option value="modern">Moderno</option>
@@ -191,13 +191,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="colors">Colori Preferiti (opzionale)</label>
-                        <input type="text" id="colors" placeholder="es. blu, oro">
+                        <label for="colors">Colori Preferiti</label>
+                        <input type="text" id="colors" placeholder="es. blu, oro" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="description">Descrizione Aggiuntiva</label>
-                        <textarea id="description" rows="3" placeholder="Descrivi la personalità del tuo brand, valori, pubblico target..."></textarea>
+                        <label for="description">Descrizione del tuo logo</label>
+                        <textarea id="description" rows="3" placeholder="Descrivi la personalità del tuo brand..." required></textarea>
                     </div>
 
                     <!-- Live Preview in Form -->

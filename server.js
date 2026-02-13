@@ -185,17 +185,17 @@ White background, centered composition, vector-style design suitable for profess
 
 function calculatePrice(style, nameLength) {
     const PRICING_BASE = {
-        minimal: 20,
-        modern: 25,
-        vintage: 30,
-        playful: 22,
-        elegant: 32,
-        bold: 25,
-        geometric: 22
+        minimal: 7,      // Stile più semplice
+        modern: 9,
+        playful: 9,
+        geometric: 10,
+        bold: 12,
+        vintage: 13,     // Più elaborato
+        elegant: 15      // Stile più complesso
     };
     
-    const basePrice = PRICING_BASE[style] || 22;
-    const complexityBonus = nameLength > 12 ? 5 : 0;
+    const basePrice = PRICING_BASE[style] || 9;
+    const complexityBonus = nameLength > 15 ? 2 : 0;
     return basePrice + complexityBonus;
 }
 
