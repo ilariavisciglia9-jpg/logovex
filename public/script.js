@@ -428,39 +428,70 @@ function clearCart() {
 // CHECKOUT
 // =====================================================
 async function checkout() {
-    if (state.cart.length === 0) {
-        showNotification('Il carrello è vuoto', 'warning');
+    // IMPORTANTE: Usa il nome corretto del localStorage!
+    const cart = JSON.parse(localStorage.getItem('logoCart') || '[]');
+    
+    if (cart.length === 0) {
+        alert('Il carrello è vuoto!');
         return;
     }
     
-    const checkoutBtn = document.querySelector('#cart-section button[onclick="checkout()"]');
-    const originalText = checkoutBtn.innerHTML;
+    // Chiedi email e nome
+    const customerEmail = prompt('Inserisci la tua email per ricevere la fattura:');
+    if (!customerEmail || !customerEmail.includes('@')) {
+        alert('Email valida richiesta per il checkout');
+        return;
+    }
+    
+    const customerName = prompt('Inserisci il tuo nome:') || 'Cliente LogoVex';
     
     try {
-        checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Elaborazione...';
-        checkoutBtn.disabled = true;
+        // Mostra loading
+        const btn = document.getElementById('modalCheckoutBtn');
+        if (btn) {
+            btn.textContent = 'Caricamento...';
+            btn.disabled = true;
+        }
         
-        // Simulazione checkout
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        console.log('🛒 Checkout con', cart.length, 'item(s)');
         
-        // In produzione, qui chiameresti Stripe
-        showNotification('Ordine completato! I loghi verranno inviati via email.', 'success');
+        // Chiama API backend
+        const response = await fetch('/api/create-checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                items: cart,
+                customerEmail: customerEmail,
+                customerName: customerName
+            })
+        });
         
-        // Clear cart
-        state.cart = [];
-        saveCart();
-        renderCart();
-        updateCartBadge();
+        if (!response.ok) {
+            throw new Error('Errore nella creazione della sessione Stripe');
+        }
         
-        // Redirect to home
-        setTimeout(() => showSection('home'), 2000);
+        const data = await response.json();
+        
+        console.log('✅ Sessione Stripe creata:', data);
+        
+        if (data.url) {
+            // Reindirizza a Stripe Checkout
+            console.log('🔄 Reindirizzo a Stripe...');
+            window.location.href = data.url;
+        } else {
+            throw new Error(data.error || 'URL Stripe non ricevuto');
+        }
         
     } catch (error) {
-        console.error('Errore checkout:', error);
-        showNotification('Errore durante il checkout', 'error');
-    } finally {
-        checkoutBtn.innerHTML = originalText;
-        checkoutBtn.disabled = false;
+        console.error('❌ Errore checkout:', error);
+        alert('Errore durante il checkout: ' + error.message + '\n\nRiprova o contatta il supporto.');
+        const btn = document.getElementById('modalCheckoutBtn');
+        if (btn) {
+            btn.textContent = 'Procedi al Pagamento';
+            btn.disabled = false;
+        }
     }
 }
 
