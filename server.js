@@ -9,12 +9,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // DEBUG: Mostra quale chiave stiamo usando
-console.log('🔑 OPENAI_API_KEY_NEW:', process.env.OPENAI_API_KEY_NEW ? 'PRESENTE (nuova)' : 'ASSENTE');
+console.log('🔑 OPENAI_API_KEY:', process.env.OPENAI_API_KEY ? 'PRESENTE (nuova)' : 'ASSENTE');
 console.log('🔑 OPENAI_API_KEY:', process.env.OPENAI_API_KEY ? 'PRESENTE (vecchia)' : 'ASSENTE');
-console.log('🔑 Ultimi 4 caratteri chiave usata:', (process.env.OPENAI_API_KEY_NEW || process.env.OPENAI_API_KEY || '').slice(-4));
+console.log('🔑 Ultimi 4 caratteri chiave usata:', (process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY || '').slice(-4));
 
 const openai = new OpenAI({ 
-    apiKey: process.env.OPENAI_API_KEY_NEW || process.env.OPENAI_API_KEY
+    apiKey: process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY
 });
 // Trust proxy per Railway
 app.set('trust proxy', 1);
