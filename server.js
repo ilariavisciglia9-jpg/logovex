@@ -246,13 +246,17 @@ function createFallbackLogo(brandName, style, industry) {
 // =====================================================
 app.post('/api/create-checkout', async (req, res) => {
     try {
+        console.log('💳 Richiesta checkout ricevuta');
+        
         const { items } = req.body;
         
         if (!items || items.length === 0) {
+            console.log('❌ Carrello vuoto');
             return res.status(400).json({ error: 'Carrello vuoto' });
         }
         
         if (!process.env.STRIPE_SECRET_KEY) {
+            console.log('❌ Stripe non configurato');
             return res.status(500).json({ error: 'Stripe non configurato' });
         }
         
@@ -263,30 +267,32 @@ app.post('/api/create-checkout', async (req, res) => {
                 currency: 'eur',
                 product_data: {
                     name: `Logo ${item.brandName}`,
-                    description: `Stile: ${item.style} | Settore: ${item.industry}`,
-                    images: item.imageUrl ? [item.imageUrl] : []
+                    description: `Stile: ${item.style}`,
                 },
                 unit_amount: Math.round(item.price * 100),
             },
             quantity: 1,
         }));
         
+        console.log('📦 Line items:', lineItems.length);
+        
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
-            success_url: `${process.env.CLIENT_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${process.env.CLIENT_URL}/#cart`,
+            success_url: `${process.env.CLIENT_URL || 'https://logovex.com'}/success.html`,
+            cancel_url: `${process.env.CLIENT_URL || 'https://logovex.com'}/#cart`,
         });
         
-        res.json({ sessionId: session.id, url: session.url });
+        console.log('✅ Sessione Stripe creata:', session.id);
+        
+        res.json({ url: session.url });
         
     } catch (error) {
-        console.error('Errore checkout:', error);
-        res.status(500).json({ error: 'Errore checkout' });
+        console.error('❌ Errore Stripe:', error.message);
+        res.status(500).json({ error: error.message });
     }
 });
-
 // =====================================================
 // HEALTH CHECK
 // =====================================================
