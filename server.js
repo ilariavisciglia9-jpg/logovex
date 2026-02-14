@@ -8,13 +8,15 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// DEBUG: Mostra quale chiave stiamo usando
-console.log('🔑 OPENAI_API_KEY:', process.env.OPENAI_API_KEY ? 'PRESENTE (nuova)' : 'ASSENTE');
-console.log('🔑 OPENAI_API_KEY:', process.env.OPENAI_API_KEY ? 'PRESENTE (vecchia)' : 'ASSENTE');
-console.log('🔑 Ultimi 4 caratteri chiave usata:', (process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY || '').slice(-4));
+const apiKey = process.env.OPENAI_API_KEY;
+console.log('🔑 OPENAI_API_KEY:', apiKey ? 'PRESENTE' : 'ASSENTE');
+if (apiKey) {
+    console.log('🔑 Primi 15 caratteri:', apiKey.substring(0, 15));
+    console.log('🔑 Ultimi 10 caratteri:', apiKey.slice(-10));
+}
 
 const openai = new OpenAI({ 
-    apiKey: process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY
+    apiKey: process.env.OPENAI_API_KEY
 });
 // Trust proxy per Railway
 app.set('trust proxy', 1);
