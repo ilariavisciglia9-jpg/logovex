@@ -2,6 +2,11 @@
 // Genera VERI loghi con DALL-E 3!
 
 // =====================================================
+// CONFIGURAZIONE API BACKEND
+// =====================================================
+const API_BASE_URL = 'https://logovex1-production.up.railway.app';
+
+// =====================================================
 // CART MODAL FUNCTIONS
 // =====================================================
 function openCartModal() {
@@ -137,7 +142,7 @@ async function generateLogo(event) {
         console.log('📦 Dati:', { brandName, industry, style, colors, description });
         
         // CHIAMATA AL BACKEND
-        const response = await fetch('/api/generate-logo', {
+        const response = await fetch(API_BASE_URL + '/api/generate-logo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -423,8 +428,12 @@ function clearCart() {
         showNotification('Carrello svuotato', 'info');
     }
 }
-//*chechout*//
+
+// =====================================================
+// CHECKOUT
+// =====================================================
 async function checkout() {
+    // IMPORTANTE: Usa il nome corretto del localStorage!
     const cart = JSON.parse(localStorage.getItem('logoCart') || '[]');
     
     if (cart.length === 0) {
@@ -432,43 +441,60 @@ async function checkout() {
         return;
     }
     
+    // Chiedi email e nome
+    const customerEmail = prompt('Inserisci la tua email per ricevere la fattura:');
+    if (!customerEmail || !customerEmail.includes('@')) {
+        alert('Email valida richiesta per il checkout');
+        return;
+    }
+    
+    const customerName = prompt('Inserisci il tuo nome:') || 'Cliente LogoVex';
+    
     try {
+        // Mostra loading
         const btn = document.getElementById('modalCheckoutBtn');
         if (btn) {
-            btn.innerHTML = '<span class="spinner"></span> Reindirizzamento...';
+            btn.textContent = 'Caricamento...';
             btn.disabled = true;
         }
         
-        console.log('🛒 Checkout con', cart.length, 'items');
+        console.log('🛒 Checkout con', cart.length, 'item(s)');
         
-        const response = await fetch('/api/create-checkout', {
+        // Chiama API backend
+        const response = await fetch(API_BASE_URL + '/api/create-checkout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ items: cart })
+            body: JSON.stringify({
+                items: cart,
+                customerEmail: customerEmail,
+                customerName: customerName
+            })
         });
         
-        const data = await response.json();
-        console.log('📡 Risposta server:', data);
-        
         if (!response.ok) {
-            throw new Error(data.error || 'Errore server');
+            throw new Error('Errore nella creazione della sessione Stripe');
         }
         
+        const data = await response.json();
+        
+        console.log('✅ Sessione Stripe creata:', data);
+        
         if (data.url) {
-            console.log('✅ Reindirizzo a Stripe');
+            // Reindirizza a Stripe Checkout
+            console.log('🔄 Reindirizzo a Stripe...');
             window.location.href = data.url;
         } else {
-            throw new Error('Nessun URL Stripe ricevuto');
+            throw new Error(data.error || 'URL Stripe non ricevuto');
         }
         
     } catch (error) {
         console.error('❌ Errore checkout:', error);
-        alert('Errore: ' + error.message);
+        alert('Errore durante il checkout: ' + error.message + '\n\nRiprova o contatta il supporto.');
         const btn = document.getElementById('modalCheckoutBtn');
         if (btn) {
-            btn.innerHTML = 'Procedi al Pagamento';
+            btn.textContent = 'Procedi al Pagamento';
             btn.disabled = false;
         }
     }
