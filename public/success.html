@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Completato - LogoVex</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .success-container {
+            background: white;
+            border-radius: 16px;
+            padding: 60px 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: scaleIn 0.6s ease-out 0.2s backwards;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+        
+        .success-icon svg {
+            width: 50px;
+            height: 50px;
+            stroke: white;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .checkmark {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: drawCheck 0.8s ease-out 0.5s forwards;
+        }
+        
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        h1 {
+            font-size: 32px;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .order-info {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .order-info h3 {
+            font-size: 16px;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .info-value {
+            color: #1a1a2e;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .next-steps {
+            background: #fff9e6;
+            border-left: 4px solid #d4af37;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .next-steps h3 {
+            font-size: 16px;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .next-steps ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .next-steps li {
+            padding: 8px 0;
+            color: #666;
+            font-size: 14px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .next-steps li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        
+        .btn-home {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37 0%, #c4941f 100%);
+            color: #1a1a2e;
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        .support-text {
+            margin-top: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .support-text a {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .support-text a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .success-container {
+                padding: 40px 25px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            .success-icon {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .success-icon svg {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">
+            <svg viewBox="0 0 52 52">
+                <path class="checkmark" d="M14 27l7 7 16-16"/>
+            </svg>
+        </div>
+        
+        <h1>🎉 Pagamento Completato!</h1>
+        <p class="subtitle">Grazie per il tuo acquisto. Il tuo ordine è stato confermato e processato con successo.</p>
+        
+        <div class="order-info">
+            <h3>📋 Dettagli Ordine</h3>
+            <div class="info-row">
+                <span class="info-label">ID Transazione:</span>
+                <span class="info-value" id="sessionId">Caricamento...</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Data:</span>
+                <span class="info-value" id="orderDate">-</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Stato:</span>
+                <span class="info-value" style="color: #10b981;">✓ Confermato</span>
+            </div>
+        </div>
+        
+        <div class="next-steps">
+            <h3>📧 Prossimi Passi</h3>
+            <ul>
+                <li>Riceverai una email di conferma all'indirizzo fornito durante il checkout</li>
+                <li>I tuoi loghi in alta risoluzione saranno inviati via email entro 5-10 minuti</li>
+                <li>Conserva questa email come ricevuta per il tuo acquisto</li>
+                <li>Se hai domande, il nostro team è a tua disposizione</li>
+            </ul>
+        </div>
+        
+        <a href="/" class="btn-home">🏠 Torna alla Home</a>
+        
+        <p class="support-text">
+            Hai bisogno di aiuto? <a href="mailto:support@logovex.com">Contatta il supporto</a>
+        </p>
+    </div>
+    
+    <script>
+        // Estrai session_id dall'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+        
+        if (sessionId) {
+            document.getElementById('sessionId').textContent = sessionId.substring(0, 20) + '...';
+        } else {
+            document.getElementById('sessionId').textContent = 'N/A';
+        }
+        
+        // Mostra data corrente
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('it-IT', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        document.getElementById('orderDate').textContent = dateStr;
+        
+        // Pulisci il carrello
+        localStorage.removeItem('logoCart');
+        
+        console.log('✅ Pagamento completato - Session ID:', sessionId);
+    </script>
+</body>
+</html>
