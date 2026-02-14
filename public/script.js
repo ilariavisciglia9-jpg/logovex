@@ -4,7 +4,7 @@
 // =====================================================
 // CONFIGURAZIONE API BACKEND
 // =====================================================
-const API_BASE_URL = 'https://logovex1-production.up.railway.app';
+const API_BASE_URL = 'https://logovex.com';
 
 // =====================================================
 // CART MODAL FUNCTIONS
