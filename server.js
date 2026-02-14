@@ -8,12 +8,14 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const apiKey = process.env.OPENAI_API_KEY;
-console.log('🔑 OPENAI_API_KEY:', apiKey ? 'PRESENTE' : 'ASSENTE');
-if (apiKey) {
-    console.log('🔑 Primi 15 caratteri:', apiKey.substring(0, 15));
-    console.log('🔑 Ultimi 10 caratteri:', apiKey.slice(-10));
-}
+app.get('/debug-stripe-key', (req, res) => {
+  const key = process.env.STRIPE_SECRET_KEY;
+  res.json({
+    keyPrefix: key ? key.substring(0, 20) + '...' : 'NOT FOUND',
+    keyLength: key ? key.length : 0,
+    environment: process.env.NODE_ENV
+  });
+});
 
 const openai = new OpenAI({ 
     apiKey: process.env.OPENAI_API_KEY
