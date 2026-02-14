@@ -8,14 +8,7 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.get('/debug-stripe-key', (req, res) => {
-  const key = process.env.STRIPE_SECRET_KEY;
-  res.json({
-    keyPrefix: key ? key.substring(0, 20) + '...' : 'NOT FOUND',
-    keyLength: key ? key.length : 0,
-    environment: process.env.NODE_ENV
-  });
-});
+
 
 const openai = new OpenAI({ 
     apiKey: process.env.OPENAI_API_KEY
@@ -27,7 +20,15 @@ app.set('trust proxy', 1);
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
-
+// AGGIUNGI QUI l'endpoint debug (DOPO i middleware)
+app.get('/debug-stripe-key', (req, res) => {
+  const key = process.env.STRIPE_SECRET_KEY;
+  res.json({
+    keyPrefix: key ? key.substring(0, 20) + '...' : 'NOT FOUND',
+    keyLength: key ? key.length : 0,
+    environment: process.env.NODE_ENV
+  });
+});
 // Rate limiting
 const rateLimit = require('express-rate-limit');
 const limiter = rateLimit({
@@ -35,9 +36,6 @@ const limiter = rateLimit({
     max: 20,
     message: 'Troppe richieste, riprova tra qualche minuto'
 });
-
-app.use('/api/', limiter);
-
 // =====================================================
 // ENDPOINT: Genera Logo con DALL-E 3
 // =====================================================
