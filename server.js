@@ -22,7 +22,15 @@ app.set('trust proxy', 1);
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
-
+// =====================================================
+// REDIRECT www → non-www
+// =====================================================
+app.use((req, res, next) => {
+    if (req.headers.host && req.headers.host.startsWith('www.')) {
+        return res.redirect(301, 'https://logovex.com' + req.url);
+    }
+    next();
+});
 // ENDPOINT DEBUG
 app.get('/debug-stripe-key', (req, res) => {
     const key = process.env.STRIPE_SECRET_KEY;
