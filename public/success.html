@@ -313,8 +313,8 @@
                     <p style="color:#666; font-size:14px;">Logo acquistato ✓</p>
                 </div>
                 ${logo.imageUrl 
-                    ? `<a href="${logo.imageUrl}" download="${logo.brandName}_logo.png" target="_blank"
-                          style="background:#d4af37; color:#1a1a2e; padding:12px 20px; border-radius:8px; text-decoration:none; font-weight:bold; white-space:nowrap;">
+                    ? `<a href="/api/download-logo?url=${encodeURIComponent(logo.imageUrl)}&name=${encodeURIComponent(logo.brandName)}"
+                        style="background:#d4af37; color:#1a1a2e; padding:12px 20px; border-radius:8px; text-decoration:none; font-weight:bold; white-space:nowrap;">
                           ⬇️ Scarica Logo
                        </a>`
                     : `<span style="color:#999; font-size:13px;">Nessuna immagine</span>`
