@@ -433,7 +433,6 @@ function clearCart() {
 // CHECKOUT
 // =====================================================
 async function checkout() {
-    // IMPORTANTE: Usa il nome corretto del localStorage!
     const cart = JSON.parse(localStorage.getItem('logoCart') || '[]');
     
     if (cart.length === 0) {
@@ -441,65 +440,54 @@ async function checkout() {
         return;
     }
     
-    // Chiedi email e nome
-    const customerEmail = prompt('Inserisci la tua email per ricevere la fattura:');
-    if (!customerEmail || !customerEmail.includes('@')) {
-        alert('Email valida richiesta per il checkout');
-        return;
-    }
-    
-    const customerName = prompt('Inserisci il tuo nome:') || 'Cliente LogoVex';
+    // ✅ SALVA I LOGHI PRIMA DEL REDIRECT
+    localStorage.setItem('pending_logos', JSON.stringify(
+        cart.map(item => ({
+            brandName: item.brandName,
+            imageUrl: item.imageUrl,
+            price: item.price
+        }))
+    ));
     
     try {
-        // Mostra loading
         const btn = document.getElementById('modalCheckoutBtn');
         if (btn) {
-            btn.textContent = 'Caricamento...';
+            btn.innerHTML = '⏳ Reindirizzamento...';
             btn.disabled = true;
         }
         
         console.log('🛒 Checkout con', cart.length, 'item(s)');
         
-        // Chiama API backend
         const response = await fetch(API_BASE_URL + '/api/create-checkout', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                items: cart,
-                customerEmail: customerEmail,
-                customerName: customerName
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: cart })
         });
         
+        const data = await response.json();
+        console.log('📡 Risposta server:', data);
+        
         if (!response.ok) {
-            throw new Error('Errore nella creazione della sessione Stripe');
+            throw new Error(data.error || 'Errore server');
         }
         
-        const data = await response.json();
-        
-        console.log('✅ Sessione Stripe creata:', data);
-        
         if (data.url) {
-            // Reindirizza a Stripe Checkout
-            console.log('🔄 Reindirizzo a Stripe...');
+            console.log('✅ Reindirizzo a Stripe');
             window.location.href = data.url;
         } else {
-            throw new Error(data.error || 'URL Stripe non ricevuto');
+            throw new Error('Nessun URL Stripe ricevuto');
         }
         
     } catch (error) {
         console.error('❌ Errore checkout:', error);
-        alert('Errore durante il checkout: ' + error.message + '\n\nRiprova o contatta il supporto.');
+        alert('Errore: ' + error.message);
         const btn = document.getElementById('modalCheckoutBtn');
         if (btn) {
-            btn.textContent = 'Procedi al Pagamento';
+            btn.innerHTML = 'Procedi al Pagamento';
             btn.disabled = false;
         }
     }
 }
-
 // =====================================================
 // NOTIFICATIONS
 // =====================================================
@@ -788,3 +776,4 @@ function toggleMobileMenu() {
     const nav = document.querySelector('.main-nav');
     nav.classList.toggle('mobile-active');
 }
+
