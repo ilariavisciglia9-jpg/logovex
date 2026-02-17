@@ -8,11 +8,10 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
-
 const openai = new OpenAI({ 
     apiKey: process.env.OPENAI_API_KEY
 });
+
 // Trust proxy per Railway
 app.set('trust proxy', 1);
 
@@ -20,15 +19,17 @@ app.set('trust proxy', 1);
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
-// AGGIUNGI QUI l'endpoint debug (DOPO i middleware)
+
+// ENDPOINT DEBUG
 app.get('/debug-stripe-key', (req, res) => {
-  const key = process.env.STRIPE_SECRET_KEY;
-  res.json({
-    keyPrefix: key ? key.substring(0, 20) + '...' : 'NOT FOUND',
-    keyLength: key ? key.length : 0,
-    environment: process.env.NODE_ENV
-  });
+    const key = process.env.STRIPE_SECRET_KEY;
+    res.json({
+        keyPrefix: key ? key.substring(0, 20) + '...' : 'NOT FOUND',
+        keyLength: key ? key.length : 0,
+        environment: process.env.NODE_ENV
+    });
 });
+
 // Rate limiting
 const rateLimit = require('express-rate-limit');
 const limiter = rateLimit({
@@ -36,6 +37,7 @@ const limiter = rateLimit({
     max: 20,
     message: 'Troppe richieste, riprova tra qualche minuto'
 });
+
 // =====================================================
 // ENDPOINT: Genera Logo con DALL-E 3
 // =====================================================
@@ -43,22 +45,18 @@ app.post('/api/generate-logo', async (req, res) => {
     try {
         const { brandName, industry, style, colors, description } = req.body;
         
-        // Validazione
         if (!brandName || !industry || !style) {
             return res.status(400).json({ error: 'Campi obbligatori mancanti' });
         }
         
-        console.log(`ðŸŽ¨ Generazione logo per: ${brandName} (${style})`);
+        console.log(`🎨 Generazione logo per: ${brandName} (${style})`);
         
-        // FASE 1: Genera concept con GPT-4
         const concept = await generateLogoConcept(brandName, industry, style, colors, description);
-        console.log('âœ… Concept generato');
+        console.log('✅ Concept generato');
         
-        // FASE 2: Genera immagine con DALL-E 3
         const imageUrl = await generateLogoImage(concept, brandName, style);
-        console.log('âœ… Immagine generata:', imageUrl);
+        console.log('✅ Immagine generata:', imageUrl);
         
-        // Risposta completa
         const logoData = {
             id: generateId(),
             brandName: brandName,
@@ -76,14 +74,8 @@ app.post('/api/generate-logo', async (req, res) => {
         res.json(logoData);
         
     } catch (error) {
-        console.error('âŒ Errore generazione:', error.message);
-        
-        const fallback = createFallbackLogo(
-            req.body.brandName, 
-            req.body.style, 
-            req.body.industry
-        );
-        
+        console.error('❌ Errore generazione:', error.message);
+        const fallback = createFallbackLogo(req.body.brandName, req.body.style, req.body.industry);
         res.json(fallback);
     }
 });
@@ -108,10 +100,7 @@ Rispondi SOLO con JSON (senza markdown, senza backticks):
     const completion = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
-            { 
-                role: "system", 
-                content: "Sei un esperto designer di loghi. Rispondi SOLO con JSON valido, senza markdown backticks." 
-            },
+            { role: "system", content: "Sei un esperto designer di loghi. Rispondi SOLO con JSON valido, senza markdown backticks." },
             { role: "user", content: prompt }
         ],
         temperature: 0.8,
@@ -119,18 +108,12 @@ Rispondi SOLO con JSON (senza markdown, senza backticks):
     });
     
     const text = completion.choices[0].message.content.trim();
-    
-    // Rimuovi markdown backticks se presenti
     const cleanText = text.replace(/```json\n?|\n?```/g, '').trim();
     
     try {
-        const parsed = JSON.parse(cleanText);
-        return parsed;
+        return JSON.parse(cleanText);
     } catch (parseError) {
-        console.error('âŒ Errore parsing JSON concept:', parseError);
-        console.error('Testo ricevuto:', text);
-        
-        // Fallback se parsing fallisce
+        console.error('❌ Errore parsing JSON concept:', parseError);
         return {
             logoText: brandName,
             tagline: `Excellence in ${industry}`,
@@ -169,17 +152,13 @@ function createDallePrompt(concept, brandName, style) {
     };
     
     const styleDesc = styleDescriptions[style] || 'professional, clean';
-    
-    // FIX: Rimuovi caratteri speciali che causano errori JSON
     const safeBrandName = String(brandName || '').replace(/["'\n\r\t\\]/g, '');
     const safeVisualDesc = String(concept.visualDescription || concept.description || '')
         .replace(/["'\n\r\t\\]/g, ' ')
         .replace(/\s+/g, ' ')
         .trim()
-        .substring(0, 200); // Limita lunghezza
-    const safeColors = Array.isArray(concept.colors) 
-        ? concept.colors.join(', ') 
-        : '#3B82F6, #1E293B';
+        .substring(0, 200);
+    const safeColors = Array.isArray(concept.colors) ? concept.colors.join(', ') : '#3B82F6, #1E293B';
     
     return `A professional ${styleDesc} logo symbol or icon for a company called "${safeBrandName}". 
 ${safeVisualDesc}. 
@@ -192,15 +171,14 @@ White background, centered composition, vector-style design suitable for profess
 
 function calculatePrice(style, nameLength) {
     const PRICING_BASE = {
-        minimal: 7,      // Stile più semplice
+        minimal: 7,
         modern: 9,
         playful: 9,
         geometric: 10,
         bold: 12,
-        vintage: 13,     // Più elaborato
-        elegant: 15      // Stile più complesso
+        vintage: 13,
+        elegant: 15
     };
-    
     const basePrice = PRICING_BASE[style] || 9;
     const complexityBonus = nameLength > 15 ? 2 : 0;
     return basePrice + complexityBonus;
@@ -211,9 +189,6 @@ function generateId() {
 }
 
 function createFallbackLogo(brandName, style, industry) {
-    const symbols = ['â—†', 'â—ˆ', 'â—‰', 'â¬Ÿ', 'â¬¢', 'â¬£', 'â–²', 'â—¼', 'â—'];
-    const symbol = symbols[Math.floor(Math.random() * symbols.length)];
-    
     const colorPalettes = {
         minimal: ['#000000', '#FFFFFF'],
         modern: ['#3B82F6', '#1E293B'],
@@ -223,13 +198,12 @@ function createFallbackLogo(brandName, style, industry) {
         bold: ['#DC2626', '#000000'],
         geometric: ['#6366F1', '#EC4899']
     };
-    
     const colors = colorPalettes[style] || ['#3B82F6', '#1E293B'];
     
     return {
         id: generateId(),
         brandName: brandName,
-        logoText: `${symbol} ${brandName}`,
+        logoText: brandName,
         tagline: `Excellence in ${industry}`,
         colors: colors,
         description: `Un logo ${style} professionale per ${brandName}`,
@@ -251,12 +225,10 @@ app.post('/api/create-checkout', async (req, res) => {
         const { items } = req.body;
         
         if (!items || items.length === 0) {
-            console.log('❌ Carrello vuoto');
             return res.status(400).json({ error: 'Carrello vuoto' });
         }
         
         if (!process.env.STRIPE_SECRET_KEY) {
-            console.log('❌ Stripe non configurato');
             return res.status(500).json({ error: 'Stripe non configurato' });
         }
         
@@ -280,11 +252,17 @@ app.post('/api/create-checkout', async (req, res) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
-            success_url: `${process.env.CLIENT_URL || 'https://logovex.com'}/success.html?session_id={CHECKOUT_SESSION_ID}`,            cancel_url: `${process.env.CLIENT_URL || 'https://logovex.com'}/#cart`,
+            metadata: {
+                items: JSON.stringify(items.map(i => ({ 
+                    brandName: i.brandName, 
+                    imageUrl: i.imageUrl 
+                })))
+            },
+            success_url: `${process.env.CLIENT_URL || 'https://logovex.com'}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${process.env.CLIENT_URL || 'https://logovex.com'}/#cart`,
         });
         
         console.log('✅ Sessione Stripe creata:', session.id);
-        
         res.json({ url: session.url });
         
     } catch (error) {
@@ -292,6 +270,7 @@ app.post('/api/create-checkout', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
 // =====================================================
 // DOWNLOAD LOGO (proxy per evitare CORS e link scaduti)
 // =====================================================
@@ -312,6 +291,81 @@ app.get('/api/download-logo', async (req, res) => {
         res.status(500).json({ error: 'Download fallito: ' + e.message });
     }
 });
+
+// =====================================================
+// STRIPE WEBHOOK → manda email con logo
+// =====================================================
+app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+    const sig = req.headers['stripe-signature'];
+    
+    let event;
+    try {
+        event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    } catch (err) {
+        return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+    
+    if (event.type === 'checkout.session.completed') {
+        const session = event.data.object;
+        const customerEmail = session.customer_details?.email;
+        const items = JSON.parse(session.metadata?.items || '[]');
+        
+        if (customerEmail && items.length > 0) {
+            await sendLogoEmail(customerEmail, items);
+        }
+    }
+    
+    res.json({ received: true });
+});
+
+// =====================================================
+// SEND EMAIL CON LOGO
+// =====================================================
+async function sendLogoEmail(email, items) {
+    const nodemailer = require('nodemailer');
+    
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+    
+    const logosHTML = items.map(item => `
+        <div style="margin: 20px 0; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+            <h3>${item.brandName}</h3>
+            ${item.imageUrl ? `
+                <img src="${item.imageUrl}" style="max-width: 300px; border-radius: 8px;" />
+                <br><br>
+                <a href="${item.imageUrl}" 
+                   style="background:#d4af37; color:#1a1a2e; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:bold;">
+                   ⬇️ Scarica Logo
+                </a>
+            ` : '<p>Logo non disponibile</p>'}
+        </div>
+    `).join('');
+    
+    await transporter.sendMail({
+        from: `"LogoVex" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: '🎨 I tuoi loghi LogoVex sono pronti!',
+        html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <h1 style="color: #1a1a2e;">🎉 Grazie per il tuo acquisto!</h1>
+                <p>I tuoi loghi sono pronti. Scaricali entro 24 ore.</p>
+                ${logosHTML}
+                <p style="color: #999; font-size: 12px;">
+                    Problemi? Contatta <a href="mailto:support@logovex.com">support@logovex.com</a>
+                </p>
+            </div>
+        `
+    });
+    
+    console.log('✅ Email inviata a:', email);
+}
+
 // =====================================================
 // HEALTH CHECK
 // =====================================================
@@ -331,21 +385,18 @@ app.get('/api/health', (req, res) => {
 // =====================================================
 app.listen(PORT, () => {
     console.log(`
-    â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
-    â•‘     ðŸŽ¨ LogoVex con DALL-E 3           â•‘
-    â•‘                                       â•‘
-    â•‘  Port: ${PORT}                          â•‘
-    â•‘  Environment: ${process.env.NODE_ENV || 'development'}           â•‘
-    â•‘                                       â•‘
-    â•‘  APIs Configured:                     â•‘
-    â•‘  ${process.env.OPENAI_API_KEY ? 'âœ…' : 'âŒ'} OpenAI GPT-4                     â•‘
-    â•‘  ${process.env.OPENAI_API_KEY ? 'âœ…' : 'âŒ'} DALL-E 3 (Image Generation)    â•‘
-    â•‘  ${process.env.STRIPE_SECRET_KEY ? 'âœ…' : 'âŒ'} Stripe                          â•‘
-    â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-    
-    ðŸŽ¨ Genera loghi VERI con immagini!
-    ðŸ“¸ DALL-E 3 crea immagini uniche e originali
-    ðŸ’° Costo: ~â‚¬0.04 per logo
+╔════════════════════════════════════════╗
+║     🎨 LogoVex con DALL-E 3            ║
+║                                        ║
+║  Port: ${PORT}                             ║
+║  Environment: ${process.env.NODE_ENV || 'development'}              ║
+║                                        ║
+║  APIs Configured:                      ║
+║  ${process.env.OPENAI_API_KEY ? '✅' : '❌'} OpenAI GPT-4                      ║
+║  ${process.env.OPENAI_API_KEY ? '✅' : '❌'} DALL-E 3 (Image Generation)     ║
+║  ${process.env.STRIPE_SECRET_KEY ? '✅' : '❌'} Stripe                           ║
+║  ${process.env.EMAIL_USER ? '✅' : '❌'} Email (Nodemailer)              ║
+╚════════════════════════════════════════╝
     `);
 });
 
