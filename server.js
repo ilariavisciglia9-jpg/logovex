@@ -1,4 +1,4 @@
-// server.js - Backend LogoVex con DALL-E 3 - FIXED VERSION
+// server.js - Backend LogoVex con DALL-E 3 - FINAL VERSION
 // Genera IMMAGINI VERE di loghi!
 
 const express = require('express');
@@ -7,6 +7,9 @@ const OpenAI = require('openai');
 require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// ✅ Salva temporaneamente i dati degli ordini in memoria
+const pendingOrders = {};
 
 const openai = new OpenAI({ 
     apiKey: process.env.OPENAI_API_KEY
@@ -247,20 +250,27 @@ app.post('/api/create-checkout', async (req, res) => {
         }));
         
         console.log('📦 Line items:', lineItems.length);
-        
+
+        // ✅ Solo brandName nei metadata (evita limite 500 char di Stripe)
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
             metadata: {
                 items: JSON.stringify(items.map(i => ({ 
-                    brandName: i.brandName, 
-                    imageUrl: i.imageUrl 
+                    brandName: i.brandName.substring(0, 50)
                 })))
             },
             success_url: `${process.env.CLIENT_URL || 'https://logovex.com'}/success.html?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.CLIENT_URL || 'https://logovex.com'}/#cart`,
         });
+
+        // ✅ Salva i dati COMPLETI (con imageUrl) in memoria usando session.id come chiave
+        pendingOrders[session.id] = items.map(i => ({
+            brandName: i.brandName,
+            imageUrl: i.imageUrl
+        }));
+        console.log('💾 Ordine salvato in memoria, session:', session.id);
         
         console.log('✅ Sessione Stripe creata:', session.id);
         res.json({ url: session.url });
@@ -303,16 +313,26 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     try {
         event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
     } catch (err) {
+        console.error('❌ Webhook signature error:', err.message);
         return res.status(400).send(`Webhook Error: ${err.message}`);
     }
     
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object;
         const customerEmail = session.customer_details?.email;
-        const items = JSON.parse(session.metadata?.items || '[]');
+        const sessionId = session.id;
+
+        // ✅ Recupera i dati completi (con imageUrl) dalla memoria
+        const items = pendingOrders[sessionId] || [];
+        console.log('📦 Ordine recuperato per email:', sessionId, '-', items.length, 'items');
+
+        // Pulisci dalla memoria dopo l'uso
+        delete pendingOrders[sessionId];
         
         if (customerEmail && items.length > 0) {
             await sendLogoEmail(customerEmail, items);
+        } else {
+            console.log('⚠️ Email non inviata - email:', customerEmail, 'items:', items.length);
         }
     }
     
@@ -326,7 +346,9 @@ async function sendLogoEmail(email, items) {
     const nodemailer = require('nodemailer');
     
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtps.aruba.it',
+        port: 465,
+        secure: true,
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS
@@ -335,29 +357,30 @@ async function sendLogoEmail(email, items) {
     
     const logosHTML = items.map(item => `
         <div style="margin: 20px 0; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
-            <h3>${item.brandName}</h3>
+            <h3 style="color: #1a1a2e;">${item.brandName}</h3>
             ${item.imageUrl ? `
                 <img src="${item.imageUrl}" style="max-width: 300px; border-radius: 8px;" />
                 <br><br>
                 <a href="${item.imageUrl}" 
                    style="background:#d4af37; color:#1a1a2e; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:bold;">
-                   ⬇️ Scarica Logo
+                   Scarica Logo
                 </a>
-            ` : '<p>Logo non disponibile</p>'}
+            ` : '<p style="color:#999;">Immagine non disponibile</p>'}
         </div>
     `).join('');
     
     await transporter.sendMail({
         from: `"LogoVex" <${process.env.EMAIL_USER}>`,
         to: email,
-        subject: '🎨 I tuoi loghi LogoVex sono pronti!',
+        subject: 'I tuoi loghi LogoVex sono pronti!',
         html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                <h1 style="color: #1a1a2e;">🎉 Grazie per il tuo acquisto!</h1>
-                <p>I tuoi loghi sono pronti. Scaricali entro 24 ore.</p>
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <h1 style="color: #1a1a2e;">Grazie per il tuo acquisto!</h1>
+                <p style="color: #666;">I tuoi loghi sono pronti. Scaricali entro 24 ore cliccando il pulsante sotto.</p>
                 ${logosHTML}
+                <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
                 <p style="color: #999; font-size: 12px;">
-                    Problemi? Contatta <a href="mailto:support@logovex.com">support@logovex.com</a>
+                    Problemi? Contatta <a href="mailto:info@logovex.com" style="color: #d4af37;">info@logovex.com</a>
                 </p>
             </div>
         `
@@ -372,10 +395,12 @@ async function sendLogoEmail(email, items) {
 app.get('/api/health', (req, res) => {
     res.json({ 
         status: 'OK',
+        pendingOrders: Object.keys(pendingOrders).length,
         apis: {
             openai: !!process.env.OPENAI_API_KEY,
             dalle: !!process.env.OPENAI_API_KEY,
-            stripe: !!process.env.STRIPE_SECRET_KEY
+            stripe: !!process.env.STRIPE_SECRET_KEY,
+            email: !!process.env.EMAIL_USER
         }
     });
 });
