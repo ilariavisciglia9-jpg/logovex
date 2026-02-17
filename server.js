@@ -280,8 +280,7 @@ app.post('/api/create-checkout', async (req, res) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
-            success_url: `${process.env.CLIENT_URL || 'https://logovex.com'}/success.html`,
-            cancel_url: `${process.env.CLIENT_URL || 'https://logovex.com'}/#cart`,
+            success_url: `${process.env.CLIENT_URL || 'https://logovex.com'}/success.html?session_id={CHECKOUT_SESSION_ID}`,            cancel_url: `${process.env.CLIENT_URL || 'https://logovex.com'}/#cart`,
         });
         
         console.log('✅ Sessione Stripe creata:', session.id);
@@ -291,6 +290,26 @@ app.post('/api/create-checkout', async (req, res) => {
     } catch (error) {
         console.error('❌ Errore Stripe:', error.message);
         res.status(500).json({ error: error.message });
+    }
+});
+// =====================================================
+// DOWNLOAD LOGO (proxy per evitare CORS e link scaduti)
+// =====================================================
+app.get('/api/download-logo', async (req, res) => {
+    const { url, name } = req.query;
+    if (!url) return res.status(400).json({ error: 'URL mancante' });
+    try {
+        const fetch = require('node-fetch');
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Fetch fallito');
+        const buffer = await response.arrayBuffer();
+        const safeName = (name || 'logo').replace(/[^a-zA-Z0-9_-]/g, '_');
+        res.setHeader('Content-Disposition', `attachment; filename="${safeName}_logo.png"`);
+        res.setHeader('Content-Type', 'image/png');
+        res.send(Buffer.from(buffer));
+    } catch (e) {
+        console.error('❌ Errore download logo:', e.message);
+        res.status(500).json({ error: 'Download fallito: ' + e.message });
     }
 });
 // =====================================================
