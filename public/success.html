@@ -280,31 +280,68 @@
     </div>
     
     <script>
-        // Estrai session_id dall'URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const sessionId = urlParams.get('session_id');
+    // Estrai session_id dall'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get('session_id');
+    
+    if (sessionId) {
+        document.getElementById('sessionId').textContent = sessionId.substring(0, 20) + '...';
+    } else {
+        document.getElementById('sessionId').textContent = 'N/A';
+    }
+    
+    // Mostra data corrente
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('it-IT', { 
+        year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+    });
+    document.getElementById('orderDate').textContent = dateStr;
+    
+    // ✅ MOSTRA I LOGHI ACQUISTATI
+    const pendingLogos = JSON.parse(localStorage.getItem('pending_logos') || '[]');
+    
+    if (pendingLogos.length > 0) {
+        const logosHTML = pendingLogos.map(logo => `
+            <div style="background:#f8f9fa; border-radius:12px; padding:20px; margin:15px 0; display:flex; align-items:center; gap:20px; text-align:left;">
+                ${logo.imageUrl 
+                    ? `<img src="${logo.imageUrl}" alt="${logo.brandName}" style="width:100px; height:100px; object-fit:cover; border-radius:8px;">`
+                    : `<div style="width:100px; height:100px; background:#1a1a2e; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:30px;">◆</div>`
+                }
+                <div style="flex:1;">
+                    <h3 style="color:#1a1a2e; margin-bottom:8px;">${logo.brandName}</h3>
+                    <p style="color:#666; font-size:14px;">Logo acquistato ✓</p>
+                </div>
+                ${logo.imageUrl 
+                    ? `<a href="${logo.imageUrl}" download="${logo.brandName}_logo.png" target="_blank"
+                          style="background:#d4af37; color:#1a1a2e; padding:12px 20px; border-radius:8px; text-decoration:none; font-weight:bold; white-space:nowrap;">
+                          ⬇️ Scarica Logo
+                       </a>`
+                    : `<span style="color:#999; font-size:13px;">Nessuna immagine</span>`
+                }
+            </div>
+        `).join('');
         
-        if (sessionId) {
-            document.getElementById('sessionId').textContent = sessionId.substring(0, 20) + '...';
-        } else {
-            document.getElementById('sessionId').textContent = 'N/A';
-        }
-        
-        // Mostra data corrente
-        const now = new Date();
-        const dateStr = now.toLocaleDateString('it-IT', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-        document.getElementById('orderDate').textContent = dateStr;
-        
-        // Pulisci il carrello
-        localStorage.removeItem('logoCart');
-        
-        console.log('✅ Pagamento completato - Session ID:', sessionId);
-    </script>
+        // Inserisci dopo il div .next-steps
+        const nextSteps = document.querySelector('.next-steps');
+        const logosDiv = document.createElement('div');
+        logosDiv.innerHTML = `
+            <div style="margin: 20px 0;">
+                <h3 style="color:#1a1a2e; margin-bottom:15px; font-size:18px;">🎨 I Tuoi Loghi</h3>
+                ${logosHTML}
+                <p style="color:#999; font-size:13px; margin-top:10px;">
+                    ⚠️ Scarica subito il logo. Il link è valido per 2 ore.
+                </p>
+            </div>
+        `;
+        nextSteps.parentNode.insertBefore(logosDiv, nextSteps);
+    }
+    
+    // Pulisci carrello
+    localStorage.removeItem('logoCart');
+    localStorage.removeItem('pending_logos');
+    
+    console.log('✅ Pagamento completato - Session ID:', sessionId);
+</script>
 </body>
 </html>
