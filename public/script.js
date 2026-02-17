@@ -763,7 +763,7 @@ function downloadLogo(logoId) {
     if (logo.imageUrl) {
         // Download real image
         const a = document.createElement('a');
-        a.href = logo.imageUrl;
+a.href = `/api/download-logo?url=${encodeURIComponent(logo.imageUrl)}&name=${encodeURIComponent(logo.brandName)}`;
         a.download = `${logo.brandName.replace(/\s+/g, '_')}_logo.png`;
         a.click();
     } else {
