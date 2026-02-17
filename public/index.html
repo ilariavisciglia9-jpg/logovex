@@ -154,6 +154,12 @@
         </div>
 
         <!-- ✅ LAYOUT AFFIANCATO: form a sinistra, preview a destra -->
+        <style>
+            @media (max-width: 768px) {
+                .generator-layout { grid-template-columns: 1fr !important; }
+                .generator-preview { position: static !important; }
+            }
+        </style>
         <div class="generator-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
             
             <form id="generator-form" class="generator-form" onsubmit="return generateLogo(event)">
