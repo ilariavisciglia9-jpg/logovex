@@ -288,6 +288,7 @@
     </div>
     
     <script>
+(async function() {
     // Estrai session_id dall'URL
     const urlParams = new URLSearchParams(window.location.search);
     const sessionId = urlParams.get('session_id');
@@ -307,7 +308,18 @@
     document.getElementById('orderDate').textContent = dateStr;
     
     // ✅ MOSTRA I LOGHI ACQUISTATI
-    const pendingLogos = JSON.parse(localStorage.getItem('pending_logos') || '[]');
+        let pendingLogos = JSON.parse(localStorage.getItem('pending_logos') || '[]');
+
+// Se localStorage è vuoto, recupera dal server
+if (pendingLogos.length === 0 && sessionId) {
+    try {
+        const orderRes = await fetch('/api/order-details?session_id=' + sessionId);
+        const orderData = await orderRes.json();
+        pendingLogos = orderData.items || [];
+    } catch(e) {
+        console.log('Errore recupero ordine:', e);
+    }
+}
         // ✅ CONVERSIONE GOOGLE ADS
 const subtotal = pendingLogos.reduce((sum, item) => sum + (item.price || 0), 0);
 const total = subtotal * 1.22;
@@ -359,6 +371,8 @@ gtag('event', 'conversion', {
     localStorage.removeItem('pending_logos');
     
     console.log('✅ Pagamento completato - Session ID:', sessionId);
+    
+    })();
 </script>
 </body>
 </html>
