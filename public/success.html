@@ -308,6 +308,15 @@
     
     // ✅ MOSTRA I LOGHI ACQUISTATI
     const pendingLogos = JSON.parse(localStorage.getItem('pending_logos') || '[]');
+        // ✅ CONVERSIONE GOOGLE ADS
+const subtotal = pendingLogos.reduce((sum, item) => sum + (item.price || 0), 0);
+const total = subtotal * 1.22;
+gtag('event', 'conversion', {
+    'send_to': 'AW-11360648759/gk8xCNHJzPobELf8lqkq',
+    'value': total.toFixed(2),
+    'currency': 'EUR',
+    'transaction_id': sessionId || ''
+});
     
     if (pendingLogos.length > 0) {
         const logosHTML = pendingLogos.map(logo => `
