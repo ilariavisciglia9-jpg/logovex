@@ -309,6 +309,16 @@ app.get('/api/download-logo', async (req, res) => {
         res.status(500).json({ error: 'Download fallito: ' + e.message });
     }
 });
+// =====================================================
+// RECUPERA DATI ORDINE PER PAGINA SUCCESS
+// =====================================================
+app.get('/api/order-details', (req, res) => {
+    const { session_id } = req.query;
+    if (!session_id) return res.status(400).json({ error: 'session_id mancante' });
+    
+    const items = pendingOrders[session_id] || [];
+    res.json({ items });
+});
 
 // =====================================================
 // STRIPE WEBHOOK → manda email con logo
