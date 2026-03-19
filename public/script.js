@@ -76,10 +76,12 @@ function renderCartModal() {
 }
 
 function updateCartModalSummary() {
-    const total = state.cart.reduce((sum, item) => sum + item.price, 0);
+    const subtotal = state.cart.reduce((sum, item) => sum + item.price, 0);
+    const vat = subtotal * 0.22;
+    const total = subtotal + vat;
     
-    const subtotalEl = document.getElementById('modalSubtotal');
-    if (subtotalEl) subtotalEl.textContent = `€${total.toFixed(2)}`;
+    document.getElementById('modalSubtotal').textContent = `€${subtotal.toFixed(2)}`;
+    document.getElementById('modalTax').textContent = `€${vat.toFixed(2)}`;
     document.getElementById('modalTotal').textContent = `€${total.toFixed(2)}`;
 }
 
