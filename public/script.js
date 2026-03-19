@@ -76,12 +76,10 @@ function renderCartModal() {
 }
 
 function updateCartModalSummary() {
-    const subtotal = state.cart.reduce((sum, item) => sum + item.price, 0);
-    const vat = subtotal * 0.22;
-    const total = subtotal + vat;
+    const total = state.cart.reduce((sum, item) => sum + item.price, 0);
     
-    document.getElementById('modalSubtotal').textContent = `€${subtotal.toFixed(2)}`;
-    document.getElementById('modalTax').textContent = `€${vat.toFixed(2)}`;
+    const subtotalEl = document.getElementById('modalSubtotal');
+    if (subtotalEl) subtotalEl.textContent = `€${total.toFixed(2)}`;
     document.getElementById('modalTotal').textContent = `€${total.toFixed(2)}`;
 }
 
@@ -776,4 +774,3 @@ function toggleMobileMenu() {
     const nav = document.querySelector('.main-nav');
     nav.classList.toggle('mobile-active');
 }
-
