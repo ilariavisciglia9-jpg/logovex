@@ -144,7 +144,7 @@ async function generateLogoImage(concept, brandName, style) {
         prompt: dallePrompt,
         n: 1,
         size: "1024x1024",
-        quality: "standard",
+        quality: "medium",
     });
     
     return response.data[0].url;
