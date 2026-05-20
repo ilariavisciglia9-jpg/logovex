@@ -145,7 +145,6 @@ async function generateLogoImage(concept, brandName, style) {
         n: 1,
         size: "1024x1024",
         quality: "standard",
-        style: "vivid"
     });
     
     return response.data[0].url;
