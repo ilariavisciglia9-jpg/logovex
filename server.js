@@ -140,7 +140,7 @@ async function generateLogoImage(concept, brandName, style) {
     console.log('🎨 DALL-E prompt:', dallePrompt);
     
     const response = await openai.images.generate({
-        model: "dall-e-3",
+        model: "gpt-image-1",
         prompt: dallePrompt,
         n: 1,
         size: "1024x1024",
