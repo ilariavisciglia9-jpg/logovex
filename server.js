@@ -147,6 +147,13 @@ async function generateLogoImage(concept, brandName, style) {
         quality: "medium",
     });
     
+    // gpt-image-1 restituisce base64, non URL
+    const b64 = response.data[0].b64_json;
+    console.log('🖼️ Risposta immagine - b64:', !!b64, '- url:', !!response.data[0].url);
+    if (b64) {
+        return `data:image/png;base64,${b64}`;
+    }
+    // fallback per URL (compatibilità futura)
     return response.data[0].url;
 }
 
