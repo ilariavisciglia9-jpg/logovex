@@ -368,49 +368,75 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
 // =====================================================
 async function sendLogoEmail(email, items) {
     const nodemailer = require('nodemailer');
-    
+
     const transporter = nodemailer.createTransport({
         host: 'smtps.aruba.it',
         port: 465,
         secure: true,
         auth: {
-           user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
         }
     });
-    
-    const logosHTML = items.map(item => `
-        <div style="margin: 20px 0; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
-            <h3 style="color: #1a1a2e;">${item.brandName}</h3>
-            ${item.imageUrl ? `
-                <img src="${item.imageUrl}" style="max-width: 300px; border-radius: 8px;" />
-                <br><br>
-                <a href="${item.imageUrl}" 
-                   style="background:#d4af37; color:#1a1a2e; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:bold;">
-                   Scarica Logo
-                </a>
-            ` : '<p style="color:#999;">Immagine non disponibile</p>'}
-        </div>
-    `).join('');
-    
+
+    // Prepara allegati e HTML per ogni logo
+    const attachments = [];
+    const logosHTML = items.map((item, index) => {
+        const cid = `logo_${index}_${Date.now()}@logovex.com`;
+
+        if (item.imageUrl && item.imageUrl.startsWith('data:')) {
+            // base64: allega come file PNG
+            const base64Data = item.imageUrl.replace(/^data:image\/\w+;base64,/, '');
+            attachments.push({
+                filename: `${(item.brandName || 'logo').replace(/[^a-zA-Z0-9_-]/g, '_')}_logo.png`,
+                content: base64Data,
+                encoding: 'base64',
+                cid: cid
+            });
+            return `
+                <div style="margin:20px 0;padding:20px;border:1px solid #eee;border-radius:8px;">
+                    <h3 style="color:#1a1a2e;">${item.brandName}</h3>
+                    <img src="cid:${cid}" style="max-width:300px;border-radius:8px;" />
+                    <br><br>
+                    <p style="color:#666;font-size:14px;">Il tuo logo e allegato a questa email come file PNG.<br>Salvalo sul tuo dispositivo per usarlo subito!</p>
+                </div>
+            `;
+        } else if (item.imageUrl) {
+            return `
+                <div style="margin:20px 0;padding:20px;border:1px solid #eee;border-radius:8px;">
+                    <h3 style="color:#1a1a2e;">${item.brandName}</h3>
+                    <img src="${item.imageUrl}" style="max-width:300px;border-radius:8px;" />
+                    <br><br>
+                    <a href="${item.imageUrl}" style="background:#d4af37;color:#1a1a2e;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;">Scarica Logo</a>
+                </div>
+            `;
+        } else {
+            return `
+                <div style="margin:20px 0;padding:20px;border:1px solid #eee;border-radius:8px;">
+                    <h3 style="color:#1a1a2e;">${item.brandName}</h3>
+                    <p style="color:#999;">Immagine non disponibile</p>
+                </div>
+            `;
+        }
+    }).join('');
+
     await transporter.sendMail({
         from: `"LogoVex" <${process.env.EMAIL_USER}>`,
         to: email,
-        subject: 'I tuoi loghi LogoVex sono pronti!',
+        subject: 'I tuoi loghi LogoVex sono pronti! 🎨',
         html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-                <h1 style="color: #1a1a2e;">Grazie per il tuo acquisto!</h1>
-                <p style="color: #666;">I tuoi loghi sono pronti. Scaricali entro 24 ore cliccando il pulsante sotto.</p>
+            <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">
+                <h1 style="color:#1a1a2e;">Grazie per il tuo acquisto!</h1>
+                <p style="color:#666;">I tuoi loghi sono allegati a questa email in formato PNG.<br>Salvali sul tuo dispositivo per usarli subito!</p>
                 ${logosHTML}
-                <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
-                <p style="color: #999; font-size: 12px;">
-                    Problemi? Contatta <a href="mailto:info@logovex.com" style="color: #d4af37;">info@logovex.com</a>
-                </p>
+                <hr style="margin:30px 0;border:none;border-top:1px solid #eee;">
+                <p style="color:#999;font-size:12px;">Problemi? Contatta <a href="mailto:info@logovex.com" style="color:#d4af37;">info@logovex.com</a></p>
             </div>
-        `
+        `,
+        attachments: attachments
     });
-    
-    console.log('✅ Email inviata a:', email);
+
+    console.log('✅ Email inviata a:', email, '- allegati:', attachments.length);
 }
 
 // =====================================================
