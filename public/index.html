@@ -1,34 +1,219 @@
 <!DOCTYPE html>
-
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LogoVex - Genera e Vendi Loghi AI</title>
+    <title>LogoVex — Crea il Tuo Logo con l'Intelligenza Artificiale in Pochi Secondi</title>
+    <meta name="description" content="Genera un logo professionale con l'AI in pochi secondi. Descrivi il tuo brand, scegli lo stile e scarica subito il tuo logo. A partire da €29, IVA inclusa.">
+    <meta name="keywords" content="genera logo ai, crea logo online, logo con intelligenza artificiale, logo professionale, generatore di loghi, logo maker">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://logovex.com/">
+    <meta name="author" content="LogoVex">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LogoVex — Crea il Tuo Logo con l'Intelligenza Artificiale">
+    <meta property="og:description" content="Genera un logo professionale con l'AI in pochi secondi. Descrivi il tuo brand, scegli lo stile e scaricalo subito.">
+    <meta property="og:image" content="https://logovex.com/site%20web.jpg">
+    <meta property="og:url" content="https://logovex.com/">
+    <meta property="og:locale" content="it_IT">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LogoVex — Crea il Tuo Logo con l'AI">
+    <meta name="twitter:description" content="Genera un logo professionale in pochi secondi. A partire da €29, IVA inclusa.">
+
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<!-- ✅ IUBENDA COOKIE BANNER -->
-    <script type="text/javascript" src="https://embeds.iubenda.com/widgets/4d570401-bcd6-4b62-9bcb-1865a8f07a33.js"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11360648759"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'AW-11360648759');
-</script>
+    <!-- ✅ IUBENDA COOKIE BANNER -->
+    <script type="text/javascript" src="https://embeds.iubenda.com/widgets/4d570401-bcd6-4b62-9bcb-1865a8f07a33.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11360648759"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-11360648759');
+    </script>
+
+    <!-- Dati strutturati per Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "LogoVex — Generatore di Loghi AI",
+      "description": "Genera un logo professionale con l'intelligenza artificiale in pochi secondi.",
+      "brand": { "@type": "Brand", "name": "LogoVex" },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "EUR",
+        "lowPrice": "29",
+        "highPrice": "49",
+        "offerCount": "4"
+      }
+    }
+    </script>
+
+    <style>
+        /* ══════════════════════════════════════
+           SEZIONI NUOVE — usa le variabili colore già definite in styles.css
+        ══════════════════════════════════════ */
+
+        /* Trust bar sotto l'hero */
+        .trust-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+        }
+        .trust-item .ti-icon { color: var(--color-accent); font-size: 1rem; }
+
+        /* Come funziona */
+        .how-section { background: var(--color-surface); }
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        .how-step {
+            text-align: center;
+            padding: var(--spacing-md);
+        }
+        .how-step-num {
+            width: 56px; height: 56px;
+            margin: 0 auto var(--spacing-sm);
+            border-radius: 50%;
+            background: var(--color-accent);
+            color: var(--color-primary);
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 1.4rem;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .how-step h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 10px; color: var(--color-text); }
+        .how-step p { color: var(--color-text-secondary); font-size: 0.95rem; }
+
+        /* Pricing */
+        .pricing-section { }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+        .price-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: var(--spacing-md) var(--spacing-sm);
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+        .price-card:hover { border-color: var(--color-accent); transform: translateY(-4px); }
+        .price-card h3 { font-family: var(--font-display); font-size: 1.2rem; color: var(--color-text); margin-bottom: 8px; }
+        .price-card .price-amount { font-family: var(--font-display); font-size: 2rem; font-weight: 900; color: var(--color-accent); }
+        .price-card .price-note { font-size: 0.78rem; color: var(--color-text-secondary); margin-top: 4px; }
+
+        .vector-banner {
+            margin-top: var(--spacing-md);
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 12px;
+            padding: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+        .vector-banner .vb-icon { font-size: 1.8rem; flex-shrink: 0; }
+        .vector-banner p { color: var(--color-text); font-size: 0.95rem; margin: 0; }
+        .vector-banner strong { color: var(--color-accent); }
+        .vector-banner a { color: var(--color-accent); font-weight: 700; text-decoration: none; }
+        .vector-banner a:hover { text-decoration: underline; }
+
+        /* Style examples (statici, sempre visibili) */
+        .examples-section { }
+        .examples-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+        .example-mark {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            width: 130px;
+            transition: var(--transition-smooth);
+        }
+        .example-mark:hover { transform: translateY(-4px); }
+        .example-mark svg { width: 92px; height: 92px; display: block; }
+        .example-mark h4 {
+            font-family: var(--font-display);
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin: 0;
+        }
+        .example-mark span {
+            font-size: 0.74rem;
+            color: var(--color-text-secondary);
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        /* FAQ teaser */
+        .faq-teaser-section { background: var(--color-surface); }
+        .faq-teaser-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        .faq-teaser-item h4 {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+        .faq-teaser-item p { color: var(--color-text-secondary); font-size: 0.92rem; }
+        .faq-teaser-cta { text-align: center; margin-top: var(--spacing-lg); }
+        .faq-teaser-cta a { color: var(--color-accent); text-decoration: none; font-weight: 700; }
+        .faq-teaser-cta a:hover { text-decoration: underline; }
+
+        @media (max-width: 968px) {
+            .how-steps { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+            .faq-teaser-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="nav">
+    <nav class="nav main-nav">
         <div class="nav-container">
             <div class="logo">
                 <span class="logo-icon">◆</span>
                 <span class="logo-text">LogoVex</span>
             </div>
             <div class="nav-links">
-                <a href="#gallery">Galleria</a>
+                <a href="#come-funziona">Come Funziona</a>
+                <a href="#prezzi">Prezzi</a>
+                <a href="#gallery">Esempi</a>
                 <a href="#generator">Genera</a>
                 <a href="javascript:void(0)" class="cart-link" onclick="openCartModal()">
                     Carrello <span class="cart-count">0</span>
@@ -37,373 +222,513 @@
         </div>
     </nav>
 
-```
-<!-- Hero Section -->
-<section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-        <h1 class="hero-title">
-            <span class="hero-title-line">Crea il tuo</span>
-            <span class="hero-title-line hero-title-accent">Logo Perfetto</span>
-            <span class="hero-title-line">con l'AI</span>
-        </h1>
-        <p class="hero-subtitle">Genera loghi professionali in secondi. Acquista, scarica e usa immediatamente.</p>
-        <div class="hero-cta">
-            <a href="#generator" class="btn btn-primary">Inizia a Creare</a>
-            <a href="#gallery" class="btn btn-secondary">Esplora Galleria</a>
-        </div>
-    </div>
-    <div class="hero-decoration"></div>
-</section>
-
-<!-- Mockup Showcase Section -->
-<section class="mockup-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Il Tuo Logo Prende Vita</h2>
-            <p class="section-subtitle">Scopri come il tuo brand si distingue su prodotti reali</p>
-        </div>
-
-        <!-- Mockup Row 1: T-Shirt -->
-        <div class="mockup-row mockup-row-left">
-            <div class="mockup-content">
-                <h3>Abbigliamento & Merchandising</h3>
-                <p>Crea una linea di abbigliamento brandizzata per il tuo team o per la vendita. I loghi professionali rendono ogni capo unico e memorabile.</p>
-                <ul class="mockup-features">
-                    <li>✓ Perfetto per t-shirt, felpe e cappellini</li>
-                    <li>✓ Formato vettoriale per stampe di qualità</li>
-                    <li>✓ Scalabile senza perdita di dettaglio</li>
-                </ul>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="hero-title-line">Crea il tuo</span>
+                <span class="hero-title-line hero-title-accent">Logo Perfetto</span>
+                <span class="hero-title-line">con l'AI</span>
+            </h1>
+            <p class="hero-subtitle">Descrivi il tuo brand, scegli lo stile e in pochi secondi hai un logo professionale pronto da scaricare. A partire da €29, IVA inclusa — nessun abbonamento.</p>
+            <div class="hero-cta">
+                <a href="#generator" class="btn btn-primary">Genera il Tuo Logo Ora</a>
+                <a href="#gallery" class="btn btn-secondary">Vedi Esempi di Stile</a>
             </div>
-            <img src="maglietta.jpg" alt="White T-Shirt" class="mockup-base-image">
-        </div>
-
-        <!-- Mockup Row 2: Mug -->
-        <div class="mockup-row mockup-row-right">
-            <div class="mockup-visual" id="mockup-mug-container">
-                <img src="tazza.jpg" alt="Tazza" class="mockup-base-image">
-            </div>
-            <div class="mockup-content">
-                <h3>Gadget Aziendali</h3>
-                <p>Tazze, penne, notebook e altri gadget personalizzati rafforzano l'identità del tuo brand. Ideale per eventi, regali aziendali e promozioni.</p>
-                <ul class="mockup-features">
-                    <li>✓ Regalo perfetto per clienti e dipendenti</li>
-                    <li>✓ Brand sempre visibile sulla scrivania</li>
-                    <li>✓ Aumenta la riconoscibilità del marchio</li>
-                </ul>
+            <div class="trust-bar">
+                <span class="trust-item"><span class="ti-icon">🔒</span> Pagamento sicuro con Stripe</span>
+                <span class="trust-item"><span class="ti-icon">⚡</span> Pronto in circa 15 secondi</span>
+                <span class="trust-item"><span class="ti-icon">📄</span> Licenza commerciale inclusa</span>
+                <span class="trust-item"><span class="ti-icon">🧾</span> Fattura elettronica automatica</span>
             </div>
         </div>
+        <div class="hero-decoration"></div>
+    </section>
 
-        <!-- Mockup Row 3: Business Card -->
-        <div class="mockup-row mockup-row-left">
-            <div class="mockup-content">
-                <h3>Biglietti da Visita</h3>
-                <p>Un biglietto da visita professionale è fondamentale per fare una prima impressione memorabile. Il tuo logo è il protagonista.</p>
-                <ul class="mockup-features">
-                    <li>✓ Design professionale e pulito</li>
-                    <li>✓ Formato standard 85x55mm</li>
-                    <li>✓ Pronto per la stampa</li>
-                </ul>
+    <!-- Come Funziona -->
+    <section id="come-funziona" class="how-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Come Funziona</h2>
+                <p class="section-subtitle">Dal brief al logo pronto in tre passaggi</p>
             </div>
-            <div class="mockup-visual" id="mockup-card-container">
-                <img src="biglietto da visita.jpg" alt="Biglietto da visita" class="mockup-base-image">
-            </div>
-        </div>
-
-        <!-- Mockup Row 4: Website -->
-        <div class="mockup-row mockup-row-right">
-            <div class="mockup-visual" id="mockup-website-container">
-                <img src="site web.jpg" alt="Sito web" class="mockup-base-image">
-            </div>
-            <div class="mockup-content">
-                <h3>Presenza Online</h3>
-                <p>Il tuo logo domina l'header del sito web, sui social media e in ogni touchpoint digitale. Una presenza coerente costruisce fiducia.</p>
-                <ul class="mockup-features">
-                    <li>✓ Ottimizzato per web e mobile</li>
-                    <li>✓ Perfetto per header e favicon</li>
-                    <li>✓ Social media ready (FB, IG, LinkedIn)</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Mockup Row 5: Shopping Bag -->
-        <div class="mockup-row mockup-row-left">
-            <div class="mockup-content">
-                <h3>Packaging & Retail</h3>
-                <p>Trasforma ogni acquisto in un'esperienza di brand. Borse shopping, scatole e packaging personalizzati creano un impatto duraturo.</p>
-                <ul class="mockup-features">
-                    <li>✓ Aumenta la percezione del valore</li>
-                    <li>✓ Marketing gratuito per strada</li>
-                    <li>✓ Cliente felice = pubblicità gratuita</li>
-                </ul>
-            </div>
-            <div class="mockup-visual" id="mockup-bag-container">
-                <img src="bag.jpg" alt="Shopping bag" class="mockup-base-image">
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- Generator Section -->
-<section id="generator" class="generator-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Generatore AI</h2>
-            <p class="section-subtitle">Descrivi il tuo brand e lascia che l'AI crei il logo perfetto</p>
-        </div>
-
-        <!-- ✅ LAYOUT AFFIANCATO: form a sinistra, preview a destra -->
-        <div class="generator-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
-            
-            <form id="generator-form" class="generator-form" onsubmit="return generateLogo(event)">
-                <div class="form-group">
-                    <label for="brandName">Nome del Brand</label>
-                    <input type="text" id="brandName" placeholder="es. TechVision" required>
+            <div class="how-steps">
+                <div class="how-step">
+                    <div class="how-step-num">1</div>
+                    <h3>Descrivi il tuo brand</h3>
+                    <p>Nome, settore, colori preferiti e stile: bastano poche righe per guidare l'AI.</p>
                 </div>
-
-                <div class="form-group">
-                    <label for="industry">Settore</label>
-                    <select id="industry" required>
-                        <option value="">Seleziona settore...</option>
-                        <option value="tech">Tecnologia</option>
-                        <option value="fashion">Moda</option>
-                        <option value="food">Food & Beverage</option>
-                        <option value="health">Salute & Wellness</option>
-                        <option value="finance">Finanza</option>
-                        <option value="education">Educazione</option>
-                        <option value="creative">Creative & Arte</option>
-                        <option value="sport">Sport</option>
-                        <option value="other">Altro</option>
-                    </select>
+                <div class="how-step">
+                    <div class="how-step-num">2</div>
+                    <h3>L'AI genera il logo</h3>
+                    <p>In circa 15 secondi ricevi un'anteprima completa, prima di qualsiasi pagamento.</p>
                 </div>
-
-                <div class="form-group">
-                    <label for="style">Stile Desiderato</label>
-                    <select id="style" required>
-                        <option value="">Seleziona stile...</option>
-                        <option value="minimal">Minimalista</option>
-                        <option value="modern">Moderno</option>
-                        <option value="vintage">Vintage</option>
-                        <option value="playful">Giocoso</option>
-                        <option value="elegant">Elegante</option>
-                        <option value="bold">Audace</option>
-                        <option value="geometric">Geometrico</option>
-                    </select>
+                <div class="how-step">
+                    <div class="how-step-num">3</div>
+                    <h3>Scarica e usa</h3>
+                    <p>Ti piace? Completi il pagamento e scarichi subito il file in alta risoluzione.</p>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="form-group">
-                    <label for="colors">Colori Preferiti</label>
-                    <input type="text" id="colors" placeholder="es. blu, oro" required>
+    <!-- Prezzi -->
+    <section id="prezzi" class="pricing-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Prezzi Chiari, Senza Sorprese</h2>
+                <p class="section-subtitle">Il prezzo dipende dallo stile scelto. Vedi sempre l'anteprima prima di pagare.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Minimal</h3>
+                    <div class="price-amount">€29</div>
+                    <p class="price-note">IVA inclusa</p>
                 </div>
-
-                <div class="form-group">
-                    <label for="description">Descrizione del tuo logo</label>
-                    <textarea id="description" rows="3" placeholder="Descrivi come vorresti l'immagine del tuo logo, il programma non genera testi" required></textarea>
+                <div class="price-card">
+                    <h3>Modern / Bold</h3>
+                    <div class="price-amount">€39</div>
+                    <p class="price-note">IVA inclusa</p>
                 </div>
+                <div class="price-card">
+                    <h3>Vintage</h3>
+                    <div class="price-amount">€45</div>
+                    <p class="price-note">IVA inclusa</p>
+                </div>
+                <div class="price-card">
+                    <h3>Elegant</h3>
+                    <div class="price-amount">€49</div>
+                    <p class="price-note">IVA inclusa</p>
+                </div>
+            </div>
+            <div class="vector-banner">
+                <span class="vb-icon">🎯</span>
+                <p>
+                    Il logo viene scaricato in <strong>formato JPEG</strong> ad alta risoluzione.
+                    Ti serve anche il <strong>file vettoriale</strong> (SVG/AI), perfetto per stampe grandi, insegne e gadget?
+                    È disponibile con un costo aggiuntivo di <strong>€5</strong>: scrivi a
+                    <a href="mailto:info@ilariavisciglia.it?subject=Richiesta%20file%20vettoriale%20logo">info@ilariavisciglia.it</a>
+                    indicando il nome del brand usato in fase di generazione.
+                </p>
+            </div>
+        </div>
+    </section>
 
-                <button type="submit" id="generateBtn" class="btn btn-primary btn-full">
-                    <span class="btn-text">Genera Logo con AI</span>
-                    <span class="btn-loader" style="display: none;">
-                        <span class="spinner"></span> Generazione in corso...
-                    </span>
-                </button>
-                <p style="font-size: 0.78em; color: #a0a0b8; text-align: center; margin-top: 8px;">⏱ La creazione del logo può richiedere fino a 15 secondi</p>
+    <!-- Mockup Showcase Section -->
+    <section class="mockup-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Il Tuo Logo Prende Vita</h2>
+                <p class="section-subtitle">Scopri come il tuo brand si distingue su prodotti reali</p>
+            </div>
 
-            </form>
+            <!-- Mockup Row 1: T-Shirt -->
+            <div class="mockup-row mockup-row-left">
+                <div class="mockup-content">
+                    <h3>Abbigliamento & Merchandising</h3>
+                    <p>Crea una linea di abbigliamento brandizzata per il tuo team o per la vendita. I loghi professionali rendono ogni capo unico e memorabile.</p>
+                    <ul class="mockup-features">
+                        <li>✓ Perfetto per t-shirt, felpe e cappellini</li>
+                        <li>✓ File JPEG in alta risoluzione, vettoriale disponibile su richiesta</li>
+                        <li>✓ Scalabile senza perdita di dettaglio</li>
+                    </ul>
+                </div>
+                <img src="maglietta.jpg" alt="Logo LogoVex stampato su t-shirt bianca" class="mockup-base-image" loading="lazy">
+            </div>
 
-            <!-- ✅ PREVIEW A DESTRA -->
-            <div class="generator-preview" style="position: sticky; top: 100px;">
-                <div id="previewContainer" class="preview-container">
-                    <div class="preview-placeholder">
-                        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                            <path d="M40 10L60 30L40 50L20 30L40 10Z" stroke="currentColor" stroke-width="2" fill="none"/>
-                            <path d="M40 50L60 70L40 90L20 70L40 50Z" stroke="currentColor" stroke-width="2" fill="none"/>
-                        </svg>
-                        <p>Il logo generato apparirà qui</p>
-                    </div>
+            <!-- Mockup Row 2: Mug -->
+            <div class="mockup-row mockup-row-right">
+                <div class="mockup-visual" id="mockup-mug-container">
+                    <img src="tazza.jpg" alt="Logo LogoVex stampato su una tazza" class="mockup-base-image" loading="lazy">
+                </div>
+                <div class="mockup-content">
+                    <h3>Gadget Aziendali</h3>
+                    <p>Tazze, penne, notebook e altri gadget personalizzati rafforzano l'identità del tuo brand. Ideale per eventi, regali aziendali e promozioni.</p>
+                    <ul class="mockup-features">
+                        <li>✓ Regalo perfetto per clienti e dipendenti</li>
+                        <li>✓ Brand sempre visibile sulla scrivania</li>
+                        <li>✓ Aumenta la riconoscibilità del marchio</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mockup Row 3: Business Card -->
+            <div class="mockup-row mockup-row-left">
+                <div class="mockup-content">
+                    <h3>Biglietti da Visita</h3>
+                    <p>Un biglietto da visita professionale è fondamentale per fare una prima impressione memorabile. Il tuo logo è il protagonista.</p>
+                    <ul class="mockup-features">
+                        <li>✓ Design professionale e pulito</li>
+                        <li>✓ Formato standard 85x55mm</li>
+                        <li>✓ Pronto per la stampa</li>
+                    </ul>
+                </div>
+                <div class="mockup-visual" id="mockup-card-container">
+                    <img src="biglietto da visita.jpg" alt="Logo LogoVex su un biglietto da visita" class="mockup-base-image" loading="lazy">
+                </div>
+            </div>
+
+            <!-- Mockup Row 4: Website -->
+            <div class="mockup-row mockup-row-right">
+                <div class="mockup-visual" id="mockup-website-container">
+                    <img src="site web.jpg" alt="Logo LogoVex nell'header di un sito web" class="mockup-base-image" loading="lazy">
+                </div>
+                <div class="mockup-content">
+                    <h3>Presenza Online</h3>
+                    <p>Il tuo logo domina l'header del sito web, sui social media e in ogni touchpoint digitale. Una presenza coerente costruisce fiducia.</p>
+                    <ul class="mockup-features">
+                        <li>✓ Ottimizzato per web e mobile</li>
+                        <li>✓ Perfetto per header e favicon</li>
+                        <li>✓ Social media ready (FB, IG, LinkedIn)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mockup Row 5: Shopping Bag -->
+            <div class="mockup-row mockup-row-left">
+                <div class="mockup-content">
+                    <h3>Packaging & Retail</h3>
+                    <p>Trasforma ogni acquisto in un'esperienza di brand. Borse shopping, scatole e packaging personalizzati creano un impatto duraturo.</p>
+                    <ul class="mockup-features">
+                        <li>✓ Aumenta la percezione del valore</li>
+                        <li>✓ Marketing gratuito per strada</li>
+                        <li>✓ Cliente felice = pubblicità gratuita</li>
+                    </ul>
+                </div>
+                <div class="mockup-visual" id="mockup-bag-container">
+                    <img src="bag.jpg" alt="Logo LogoVex su una shopping bag" class="mockup-base-image" loading="lazy">
                 </div>
             </div>
 
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Gallery Section -->
-<section id="gallery" class="gallery-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Galleria Loghi</h2>
-            <p class="section-subtitle">Esplora i loghi creati dalla community</p>
-        </div>
-
-        <div class="gallery-filters">
-            <button class="filter-btn active" data-filter="all">Tutti</button>
-            <button class="filter-btn" data-filter="tech">Tech</button>
-            <button class="filter-btn" data-filter="fashion">Moda</button>
-            <button class="filter-btn" data-filter="food">Food</button>
-            <button class="filter-btn" data-filter="minimal">Minimal</button>
-            <button class="filter-btn" data-filter="modern">Moderno</button>
-        </div>
-
-        <div id="galleryGrid" class="gallery-grid">
-            <!-- Logos will be dynamically inserted here -->
-        </div>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <div class="logo">
-                    <span class="logo-icon">◆</span>
-                    <span class="logo-text">LogoVex</span>
-                </div>
-                <p>Genera loghi professionali con l'intelligenza artificiale</p>
-                
-                <div class="ai-disclaimer" style="margin-top: 20px; padding: 15px; background: rgba(212, 175, 55, 0.1); border-left: 3px solid #d4af37; border-radius: 4px;">
-                    <p style="font-size: 0.9em; color: #666;">
-                        <strong>🤖 Trasparenza AI:</strong> I loghi sono generati tramite intelligenza artificiale (DALL-E 3 di OpenAI). 
-                        LogoVex non garantisce l'unicità assoluta dei design. 
-                        <strong>Si consiglia verifica marchi prima dell'uso commerciale.</strong>
-                    </p>
-                </div>
+    <!-- Style Examples (statici, a linea fine) -->
+    <section class="examples-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Sei Stili tra Cui Scegliere</h2>
+                <p class="section-subtitle">Un'anteprima dei sei stili disponibili nel generatore</p>
             </div>
-            
-            <div class="footer-links">
-                <div class="footer-column">
-                    <h4>Prodotto</h4>
-                    <a href="#generator">Generatore</a>
-                    <a href="#gallery">Galleria</a>
-                    <a href="faq.html">FAQ</a>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Legale</h4>
-                    <a href="terms.html">Termini di Servizio</a>
-                    <!-- ✅ IUBENDA Privacy Policy -->
-                    <a href="https://www.iubenda.com/privacy-policy/22081708" class="iubenda-white iubenda-noiframe iubenda-embed" title="Privacy Policy">Privacy Policy</a>
-                    <!-- ✅ IUBENDA Cookie Policy -->
-                    <a href="https://www.iubenda.com/privacy-policy/22081708/cookie-policy" class="iubenda-white iubenda-noiframe iubenda-embed" title="Cookie Policy">Cookie Policy</a>
-                    <a href="faq.html#licenza">Licenza Logo</a>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Supporto</h4>
-                    <a href="faq.html">Domande Frequenti</a>
-                    <a href="mailto:info@logovex.com">Contatti</a>
-                    <a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">GDPR</a>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Verifica Marchi</h4>
-                    <a href="https://www.uibm.gov.it" target="_blank" rel="noopener">UIBM Italia</a>
-                    <a href="https://www.euipo.europa.eu" target="_blank" rel="noopener">EUIPO UE</a>
-                    <a href="https://www.wipo.int" target="_blank" rel="noopener">WIPO Mondiale</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-company-info" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.85em; color: #a0a0b8;">
-            <p><strong>Email: info@logovex.com</strong></p>
-        </div>
-        
-        <div class="footer-bottom">
-            <p style="text-align: center;">
-                &copy; 2025 LogoVex. Tutti i diritti riservati.<br>
-                <span style="font-size: 0.85em; color: #a0a0b8;">
-                    Loghi generati con <a href="https://openai.com" target="_blank" rel="noopener" style="color: #d4af37;">OpenAI DALL-E 3</a> | 
-                    <a href="https://www.iubenda.com/privacy-policy/22081708" class="iubenda-white iubenda-noiframe iubenda-embed" style="color: #d4af37;">Privacy Policy</a> | 
-                    <a href="https://www.iubenda.com/privacy-policy/22081708/cookie-policy" class="iubenda-white iubenda-noiframe iubenda-embed" style="color: #d4af37;">Cookie Policy</a> | 
-                    <a href="terms.html" style="color: #d4af37;">Termini</a> | 
-                    <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener" style="color: #d4af37;">ODR</a>
-                </span>
-            </p>
-        </div>
-    </div>
-</footer>
-
-<!-- Modal for Logo Details -->
-<div id="logoModal" class="modal">
-    <div class="modal-content">
-        <button class="modal-close">&times;</button>
-        <div class="modal-body">
-            <div class="modal-preview" id="modalPreview"></div>
-            <div class="modal-info">
-                <h3 id="modalTitle"></h3>
-                <p id="modalDescription"></p>
-                <div class="modal-details">
-                    <div class="detail-item">
-                        <span class="detail-label">Settore:</span>
-                        <span id="modalIndustry"></span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Stile:</span>
-                        <span id="modalStyle"></span>
-                    </div>
-                </div>
-                <div class="modal-price" id="modalPrice"></div>
-                <button id="modalAddToCart" class="btn btn-primary btn-full">Aggiungi al Carrello</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Cart Modal -->
-<div id="cartModal" class="modal">
-    <div class="modal-content">
-        <button class="modal-close" onclick="closeCartModal()">&times;</button>
-        <div class="modal-body">
-            <h2 style="margin-bottom: 20px;">Il Tuo Carrello</h2>
-            
-            <div id="cartModalContent" class="cart-modal-content">
-                <div class="cart-empty" style="text-align: center; padding: 40px;">
-                    <svg width="60" height="60" viewBox="0 0 60 60" fill="none" style="margin: 0 auto 20px;">
-                        <circle cx="30" cy="30" r="25" stroke="currentColor" stroke-width="2"/>
-                        <path d="M20 35L30 25L40 35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <div class="examples-row">
+                <div class="example-mark">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="30" fill="none" stroke="#a9822e" stroke-width="1.4"/>
+                        <circle cx="50" cy="50" r="3.5" fill="#a9822e"/>
                     </svg>
-                    <p>Il tuo carrello è vuoto</p>
-                    <a href="#generator" class="btn btn-primary" onclick="closeCartModal()" style="margin-top: 20px; display: inline-block; padding: 12px 24px; background: #d4af37; color: #1a1a2e; text-decoration: none; border-radius: 4px;">Genera un Logo</a>
+                    <h4>Minimal</h4>
+                    <span>essenziale · pulito</span>
+                </div>
+                <div class="example-mark">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="30" y="30" width="40" height="40" fill="none" stroke="#a9822e" stroke-width="1.4" transform="rotate(45 50 50)"/>
+                        <rect x="42" y="42" width="16" height="16" fill="none" stroke="#211d2e" stroke-width="1" transform="rotate(45 50 50)"/>
+                    </svg>
+                    <h4>Modern</h4>
+                    <span>geometrico · deciso</span>
+                </div>
+                <div class="example-mark">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="32" fill="none" stroke="#a9822e" stroke-width="1"/>
+                        <circle cx="50" cy="50" r="25" fill="none" stroke="#a9822e" stroke-width="1.4"/>
+                        <text x="50" y="53" font-family="'Playfair Display', serif" font-size="9" text-anchor="middle" fill="#211d2e">1925</text>
+                    </svg>
+                    <h4>Vintage</h4>
+                    <span>retrò · artigianale</span>
+                </div>
+                <div class="example-mark">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="38" cy="42" r="9" fill="none" stroke="#a9822e" stroke-width="1.4"/>
+                        <circle cx="64" cy="38" r="7" fill="none" stroke="#a9822e" stroke-width="1.4"/>
+                        <circle cx="52" cy="64" r="8" fill="none" stroke="#211d2e" stroke-width="1.4"/>
+                    </svg>
+                    <h4>Playful</h4>
+                    <span>giocoso · colorato</span>
+                </div>
+                <div class="example-mark">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 20 L72 50 L50 80 L28 50 Z" fill="none" stroke="#a9822e" stroke-width="1.2"/>
+                        <text x="50" y="54" font-family="'Playfair Display', serif" font-style="italic" font-size="16" text-anchor="middle" fill="#211d2e">L</text>
+                    </svg>
+                    <h4>Elegant</h4>
+                    <span>raffinato · sobrio</span>
+                </div>
+                <div class="example-mark">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="28" y="28" width="44" height="44" fill="none" stroke="#211d2e" stroke-width="3" transform="rotate(45 50 50)"/>
+                        <rect x="28" y="28" width="44" height="44" fill="none" stroke="#a9822e" stroke-width="1" transform="rotate(45 50 50)"/>
+                    </svg>
+                    <h4>Bold</h4>
+                    <span>forte · d'impatto</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Generator Section -->
+    <section id="generator" class="generator-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Generatore AI</h2>
+                <p class="section-subtitle">Descrivi il tuo brand e lascia che l'AI crei il logo perfetto</p>
+            </div>
+
+            <div class="generator-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+
+                <form id="generator-form" class="generator-form" onsubmit="return generateLogo(event)">
+                    <div class="form-group">
+                        <label for="brandName">Nome del Brand</label>
+                        <input type="text" id="brandName" placeholder="es. TechVision" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="industry">Settore</label>
+                        <select id="industry" required>
+                            <option value="">Seleziona settore...</option>
+                            <option value="tech">Tecnologia</option>
+                            <option value="fashion">Moda</option>
+                            <option value="food">Food & Beverage</option>
+                            <option value="health">Salute & Wellness</option>
+                            <option value="finance">Finanza</option>
+                            <option value="education">Educazione</option>
+                            <option value="creative">Creative & Arte</option>
+                            <option value="sport">Sport</option>
+                            <option value="other">Altro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="style">Stile Desiderato</label>
+                        <select id="style" required>
+                            <option value="">Seleziona stile...</option>
+                            <option value="minimal">Minimalista</option>
+                            <option value="modern">Moderno</option>
+                            <option value="vintage">Vintage</option>
+                            <option value="playful">Giocoso</option>
+                            <option value="elegant">Elegante</option>
+                            <option value="bold">Audace</option>
+                            <option value="geometric">Geometrico</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="colors">Colori Preferiti</label>
+                        <input type="text" id="colors" placeholder="es. blu, oro" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Descrizione del tuo logo</label>
+                        <textarea id="description" rows="3" placeholder="Descrivi come vorresti l'immagine del tuo logo, il programma non genera testi" required></textarea>
+                    </div>
+
+                    <button type="submit" id="generateBtn" class="btn btn-primary btn-full">
+                        <span class="btn-text">Genera Logo con AI</span>
+                        <span class="btn-loader" style="display: none;">
+                            <span class="spinner"></span> Generazione in corso...
+                        </span>
+                    </button>
+                    <p style="font-size: 0.78em; color: #a0a0b8; text-align: center; margin-top: 8px;">⏱ La creazione del logo può richiedere fino a 15 secondi · Vedi il prezzo e l'anteprima prima di pagare</p>
+
+                </form>
+
+                <!-- Preview -->
+                <div class="generator-preview" style="position: sticky; top: 100px;">
+                    <div id="previewContainer" class="preview-container">
+                        <div class="preview-placeholder">
+                            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                                <path d="M40 10L60 30L40 50L20 30L40 10Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <path d="M40 50L60 70L40 90L20 70L40 50Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                            <p>Il logo generato apparirà qui</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">La Tua Galleria</h2>
+                <p class="section-subtitle">I loghi generati in questa sessione appariranno qui</p>
+            </div>
+
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">Tutti</button>
+                <button class="filter-btn" data-filter="tech">Tech</button>
+                <button class="filter-btn" data-filter="fashion">Moda</button>
+                <button class="filter-btn" data-filter="food">Food</button>
+                <button class="filter-btn" data-filter="minimal">Minimal</button>
+                <button class="filter-btn" data-filter="modern">Moderno</button>
+            </div>
+
+            <div id="galleryGrid" class="gallery-grid">
+                <!-- Logos will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Teaser -->
+    <section class="faq-teaser-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Le Domande Più Frequenti</h2>
+                <p class="section-subtitle">Trasparenza prima di tutto</p>
+            </div>
+            <div class="faq-teaser-grid">
+                <div class="faq-teaser-item">
+                    <h4>Come vengono generati i loghi?</h4>
+                    <p>Con l'intelligenza artificiale (DALL-E 3 di OpenAI). Non sono disegnati da designer umani.</p>
+                </div>
+                <div class="faq-teaser-item">
+                    <h4>Posso avere un rimborso?</h4>
+                    <p>Vedi l'anteprima completa prima di pagare, quindi i rimborsi non sono previsti salvo errori tecnici.</p>
+                </div>
+                <div class="faq-teaser-item">
+                    <h4>In che formato ricevo il logo?</h4>
+                    <p>PNG/JPEG in alta risoluzione. Il file vettoriale è disponibile su richiesta per €5 extra.</p>
+                </div>
+                <div class="faq-teaser-item">
+                    <h4>I miei dati sono al sicuro?</h4>
+                    <p>Sì: connessioni HTTPS, pagamenti gestiti da Stripe, nessun dato di carta salvato sui nostri server.</p>
+                </div>
+            </div>
+            <div class="faq-teaser-cta">
+                <a href="faq.html">Leggi tutte le domande frequenti →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-icon">◆</span>
+                        <span class="logo-text">LogoVex</span>
+                    </div>
+                    <p>Genera loghi professionali con l'intelligenza artificiale</p>
+
+                    <div class="ai-disclaimer" style="margin-top: 20px; padding: 15px; background: rgba(212, 175, 55, 0.1); border-left: 3px solid #d4af37; border-radius: 4px;">
+                        <p style="font-size: 0.9em; color: #666;">
+                            <strong>🤖 Trasparenza AI:</strong> I loghi sono generati tramite intelligenza artificiale (DALL-E 3 di OpenAI).
+                            LogoVex non garantisce l'unicità assoluta dei design.
+                            <strong>Si consiglia verifica marchi prima dell'uso commerciale.</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Prodotto</h4>
+                        <a href="#generator">Generatore</a>
+                        <a href="#prezzi">Prezzi</a>
+                        <a href="#gallery">Galleria</a>
+                        <a href="faq.html">FAQ</a>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Legale</h4>
+                        <a href="terms.html">Termini di Servizio</a>
+                        <!-- ✅ IUBENDA Privacy Policy -->
+                        <a href="https://www.iubenda.com/privacy-policy/22081708" class="iubenda-white iubenda-noiframe iubenda-embed" title="Privacy Policy">Privacy Policy</a>
+                        <!-- ✅ IUBENDA Cookie Policy -->
+                        <a href="https://www.iubenda.com/privacy-policy/22081708/cookie-policy" class="iubenda-white iubenda-noiframe iubenda-embed" title="Cookie Policy">Cookie Policy</a>
+                        <a href="faq.html#licenza">Licenza Logo</a>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Supporto</h4>
+                        <a href="faq.html">Domande Frequenti</a>
+                        <a href="mailto:info@logovex.com">Contatti</a>
+                        <a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">GDPR</a>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Verifica Marchi</h4>
+                        <a href="https://www.uibm.gov.it" target="_blank" rel="noopener">UIBM Italia</a>
+                        <a href="https://www.euipo.europa.eu" target="_blank" rel="noopener">EUIPO UE</a>
+                        <a href="https://www.wipo.int" target="_blank" rel="noopener">WIPO Mondiale</a>
+                    </div>
                 </div>
             </div>
 
-            <div id="cartModalSummary" class="cart-summary" style="display: none; margin-top: 30px; padding-top: 20px; border-top: 2px solid #d4af37;">
-                <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span>Subtotale:</span>
-                    <span id="modalSubtotal">€0.00</span>
+            <div class="footer-company-info" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.85em; color: #a0a0b8;">
+                <p><strong>Email: info@logovex.com</strong></p>
+            </div>
+
+            <div class="footer-bottom">
+                <p style="text-align: center;">
+                    &copy; 2025 LogoVex. Tutti i diritti riservati.<br>
+                    <span style="font-size: 0.85em; color: #a0a0b8;">
+                        Loghi generati con <a href="https://openai.com" target="_blank" rel="noopener" style="color: #d4af37;">OpenAI DALL-E 3</a> |
+                        <a href="https://www.iubenda.com/privacy-policy/22081708" class="iubenda-white iubenda-noiframe iubenda-embed" style="color: #d4af37;">Privacy Policy</a> |
+                        <a href="https://www.iubenda.com/privacy-policy/22081708/cookie-policy" class="iubenda-white iubenda-noiframe iubenda-embed" style="color: #d4af37;">Cookie Policy</a> |
+                        <a href="terms.html" style="color: #d4af37;">Termini</a> |
+                        <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener" style="color: #d4af37;">ODR</a>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCartModal()">&times;</button>
+            <div class="modal-body">
+                <h2 style="margin-bottom: 20px;">Il Tuo Carrello</h2>
+
+                <div id="cartModalContent" class="cart-modal-content">
+                    <div class="cart-empty" style="text-align: center; padding: 40px;">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" style="margin: 0 auto 20px;">
+                            <circle cx="30" cy="30" r="25" stroke="currentColor" stroke-width="2"/>
+                            <path d="M20 35L30 25L40 35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <p>Il tuo carrello è vuoto</p>
+                        <a href="#generator" class="btn btn-primary" onclick="closeCartModal()" style="margin-top: 20px; display: inline-block; padding: 12px 24px; background: #d4af37; color: #1a1a2e; text-decoration: none; border-radius: 4px;">Genera un Logo</a>
+                    </div>
                 </div>
-                <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span>IVA (22%):</span>
-                    <span id="modalTax">€0.00</span>
+
+                <div id="cartModalSummary" class="cart-summary" style="display: none; margin-top: 30px; padding-top: 20px; border-top: 2px solid #d4af37;">
+                    <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>Subtotale:</span>
+                        <span id="modalSubtotal">€0.00</span>
+                    </div>
+                    <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>di cui IVA (22%):</span>
+                        <span id="modalTax">€0.00</span>
+                    </div>
+                    <div class="summary-row summary-total" style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 20px; font-weight: bold; color: #d4af37;">
+                        <span>Totale:</span>
+                        <span id="modalTotal">€0.00</span>
+                    </div>
+                    <button id="modalCheckoutBtn" class="btn btn-primary btn-full" onclick="checkout()" style="width: 100%; padding: 15px; background: #d4af37; color: #1a1a2e; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold;">Procedi al Pagamento</button>
                 </div>
-                <div class="summary-row summary-total" style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 20px; font-weight: bold; color: #d4af37;">
-                    <span>Totale:</span>
-                    <span id="modalTotal">€0.00</span>
-                </div>
-                <button id="modalCheckoutBtn" class="btn btn-primary btn-full" onclick="checkout()" style="width: 100%; padding: 15px; background: #d4af37; color: #1a1a2e; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold;">Procedi al Pagamento</button>
             </div>
         </div>
     </div>
-</div>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
-<!-- ✅ IUBENDA SCRIPT - una volta sola alla fine -->
-<script type="text/javascript">
-(function (w,d) {
-    var loader = function () {
-        var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0];
-        s.src="https://cdn.iubenda.com/iubenda.js";
-        tag.parentNode.insertBefore(s,tag);
-    };
-    if(w.addEventListener){w.addEventListener("load", loader, false);}
-    else if(w.attachEvent){w.attachEvent("onload", loader);}
-    else{w.onload = loader;}
-})(window, document);
-</script>
-```
+    <!-- ✅ IUBENDA SCRIPT - una volta sola alla fine -->
+    <script type="text/javascript">
+    (function (w,d) {
+        var loader = function () {
+            var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0];
+            s.src="https://cdn.iubenda.com/iubenda.js";
+            tag.parentNode.insertBefore(s,tag);
+        };
+        if(w.addEventListener){w.addEventListener("load", loader, false);}
+        else if(w.attachEvent){w.attachEvent("onload", loader);}
+        else{w.onload = loader;}
+    })(window, document);
+    </script>
 
 </body>
 </html>
