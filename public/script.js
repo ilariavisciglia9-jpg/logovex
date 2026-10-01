@@ -116,8 +116,10 @@ function showSection(sectionId) {
 // =====================================================
 // LOGO GENERATOR - CHIAMATA AL BACKEND (VERSIONE CORRETTA)
 // =====================================================
+let isGenerating = false;
 async function generateLogo(event) {
     event.preventDefault();
+    if (isGenerating) return false;
     
     const brandName = document.getElementById('brandName').value.trim();
     const industry = document.getElementById('industry').value;
@@ -131,7 +133,9 @@ async function generateLogo(event) {
     }
     
     const generateBtn = document.querySelector('#generator-form button[type="submit"]');
-    const originalText = generateBtn.innerHTML;
+    if (!generateBtn.dataset.originalHtml) generateBtn.dataset.originalHtml = generateBtn.innerHTML;
+    const originalText = generateBtn.dataset.originalHtml;
+    isGenerating = true;
     
     try {
         // Show loading
@@ -243,7 +247,9 @@ async function generateLogo(event) {
     } finally {
         generateBtn.innerHTML = originalText;
         generateBtn.disabled = false;
+        isGenerating = false;
     }
+    return false;
 }
 
 // =====================================================
@@ -319,7 +325,7 @@ function displayGeneratedLogo(logo) {
 // CART MANAGEMENT
 // =====================================================
 function addToCart(logoId) {
-    const logo = state.generatedLogos.find(l => l.id === logoId);
+    const logo = state.generatedLogos.find(l => String(l.id) === String(logoId));
     
     if (!logo) {
         showNotification('Logo non trovato', 'error');
@@ -327,7 +333,7 @@ function addToCart(logoId) {
     }
     
     // Check if already in cart
-    if (state.cart.some(item => item.id === logoId)) {
+    if (state.cart.some(item => String(item.id) === String(logoId))) {
         showNotification('Logo già nel carrello', 'warning');
         return;
     }
@@ -339,7 +345,7 @@ function addToCart(logoId) {
 }
 
 function removeFromCart(logoId) {
-    state.cart = state.cart.filter(item => item.id !== logoId);
+    state.cart = state.cart.filter(item => String(item.id) !== String(logoId));
     saveCart();
     updateCartBadge();
     renderCartModal(); // Aggiorna il modal
@@ -688,7 +694,7 @@ const logoDesigns = {
 }
 
 function viewLogoDetails(logoId) {
-    const logo = state.generatedLogos.find(l => l.id === logoId);
+    const logo = state.generatedLogos.find(l => String(l.id) === String(logoId));
     if (logo) {
         displayGeneratedLogo(logo);
     }
@@ -699,10 +705,9 @@ function viewLogoDetails(logoId) {
 // =====================================================
 document.addEventListener('DOMContentLoaded', () => {
     // Setup form handler
-    const generatorForm = document.getElementById('generator-form');
-    if (generatorForm) {
-        generatorForm.addEventListener('submit', generateLogo);
-    }
+    // NB: il form usa già onsubmit="return generateLogo(event)" nell'HTML.
+    // Il listener aggiuntivo faceva partire DUE generazioni per ogni click
+    // (bottone bloccato su "Generazione in corso..." e doppio costo DALL-E).
     // =====================================================
     // GALLERIA - Si popola con i loghi generati dagli utenti
     // =====================================================
@@ -758,7 +763,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // UTILITY FUNCTIONS
 // =====================================================
 function downloadLogo(logoId) {
-    const logo = state.generatedLogos.find(l => l.id === logoId);
+    const logo = state.generatedLogos.find(l => String(l.id) === String(logoId));
     if (!logo) return;
     
     if (logo.imageUrl) {
